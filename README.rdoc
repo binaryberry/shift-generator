@@ -1,0 +1,15 @@
+== README
+
+##Trello board
+https://trello.com/b/M4GRrHqP/shift-generator-20-projects
+
+##Diary of how this app was built
+
+4th of september:
+- Delivery Manager shares 2nd line rules document
+
+10th of september:
+- Fleshed out classes with mentor
+
+18th of september:
+- built Trello board and started Rails app
