@@ -1,0 +1,7 @@
+<%= form_for @week, :html => { :multipart => true } do |f| %>
+<%= f.label :date_commencing %>
+<%= f.text_field :name %>
+<%= f.submit %>
+<%end%>
+
+<%= link_to 'Add a week', new_week_path %>
