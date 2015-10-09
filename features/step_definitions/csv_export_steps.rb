@@ -11,7 +11,7 @@ Then(/^a prompt to add a week$/) do
 end
 
 Given(/^I fill in the names of developers,$/) do
-	fill_in "names", :with => "Tatiana"
+	fill_in "name", :with => "Tatiana"
 end
 
 Then(/^I can download a csv file$/) do
