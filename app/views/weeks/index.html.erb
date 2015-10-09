@@ -1,0 +1,7 @@
+<%= form_for @week do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<%= f.submit %>
+<%end%>
+
+<%= link_to 'Add a week', new_week_path %>

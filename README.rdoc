@@ -12,4 +12,4 @@ https://trello.com/b/M4GRrHqP/shift-generator-20-projects
 - Fleshed out classes with mentor
 
 18th of september:
-- built Trello board and started Rails app
+- started Trello board and Rails app
