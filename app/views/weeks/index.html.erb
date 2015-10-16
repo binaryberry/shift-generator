@@ -1,7 +1,39 @@
-<%= form_for @week do |f| %>
-<%= f.label :name %>
-<%= f.text_field :name %>
-<%= f.submit %>
-<%end%>
+<h1>Listing Weeks</h1>
 
-<%= link_to 'Add a week', new_week_path %>
+<table>
+  <tr>
+
+    <th>Name</th>
+    <th>Start Date</th>
+    <% Week.roles.each do |role| %>
+      <th><%= role %></th>
+    <% end %>
+
+  </tr>
+
+<% @weeks.each do |week| %>
+  <tr>
+    <td><%= week.name %></td>
+    <td><%= week.start_date %></td>
+    <% week.assignments.each do |assignment| %>
+      <td><%= assignment.person.name if assignment.person %></td>
+    <% end %>
+      <td>
+      <%= link_to "Show", week %>
+      <%= link_to "Edit", edit_week_path(week) %>
+      <%= link_to "Remove", week, method: :delete, data: { confirm: "Are you sure?" } %>
+    </td>
+  </tr>
+<% end %>
+  <tr>
+    <%= form_for @week do |f| %>
+      <td><%= f.text_field :name %></td>
+      <td><%= f.date_field :start_date %></td>
+      <%= f.fields_for :assignments do |assignment_fields| %>
+        <td>Person: <%= assignment_fields.collection_select(:person, Person.with_role(assignment_fields.object.role), :id, :name) %></td>
+        <%= assignment_fields.hidden_field(:role) %>
+      <% end %>
+      <td><%= f.submit %></td>
+    <% end %>
+  </tr>
+</table>

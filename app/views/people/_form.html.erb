@@ -17,16 +17,10 @@
   </div>
   <div class="field">
     <%= f.label :roles %><br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "On call - weekdays") %> <br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "On call - weekend") %><br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "Primary Developer") %><br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "Supplemental Developer") %><br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "Infrastructure Developer") %><br>
+    <% Week.roles.each do |role| %>
+      <%= f.label role %><br>
+      <%= f.check_box :roles, {multiple: true}, role, nil %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>
