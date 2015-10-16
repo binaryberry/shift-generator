@@ -1,15 +1,7 @@
 == README
 
-##Trello board
-https://trello.com/b/M4GRrHqP/shift-generator-20-projects
+Currently, GOV.UK 2nd line and oncall shifts are determined manually through an excel spreadsheet. Shift-generator will allow to generate a shift calendar automatically, assigning developers to different weeks automatically.
 
-##Diary of how this app was built
+##How to run tests
 
-4th of september:
-- Delivery Manager shares 2nd line rules document
-
-10th of september:
-- Fleshed out classes with mentor
-
-18th of september:
-- started Trello board and Rails app
+`bundle exec rake`
