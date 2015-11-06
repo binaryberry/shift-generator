@@ -1,1 +1,6 @@
-<td><%= person.roles.map{|role| role.humanize}.to_sentence %></td>
+<td><% person.roles.each do |role| %>
+
+  <%= role.humanize %>
+  <%= "| " unless person.roles[-1] == role %>
+<% end %>
+</td>

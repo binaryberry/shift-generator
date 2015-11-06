@@ -1,35 +1,51 @@
-<h1>Listing Weeks</h1>
+<h1>Schedule</h1>
 
-<table>
-  <tr>
-    <th>Start Date</th>
-    <% Week.roles.each do |role| %>
-      <th><%= role.humanize %></th>
-    <% end %>
-  </tr>
+<%= form_for @week do |f| %>
+<!-- TODO: Fix display of errors -->
+  <% if @week.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@week.errors.count, "error") %> prohibited this week from being saved:</h2>
 
-<% @weeks.each do |week| %>
-  <tr>
-    <td><%= week.start_date %></td>
-    <% week.assignments.each do |assignment| %>
-      <td><%= assignment.person.name if assignment.person %></td>
-    <% end %>
-      <td>
-      <%= link_to "Show", week %>
-      <%= link_to "Edit", edit_week_path(week) %>
-      <%= link_to "Remove", week, method: :delete, data: { confirm: "Are you sure?" } %>
-    </td>
-  </tr>
-<% end %>
-  <tr>
-    <%= form_for @week do |f| %>
-      <td><%= f.date_field :start_date %></td>
-      <%= f.fields_for :assignments do |assignment_fields| %>
-        <td><%= assignment_fields.collection_select(:person, Person.with_role(assignment_fields.object.role), :id, :name) %></td>
-        <%= assignment_fields.hidden_field(:role) %>
+      <ul>
+      <% @week.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
-      <td><%= f.submit %></td>
+      </ul>
+    </div>
+  <% end %>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-header">
+        <th>Start Date</th>
+        <% Week.roles.each do |role| %>
+          <th><%= role.humanize %></th>
+        <% end %>
+        <th>Edit table</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @weeks.each do |week| %>
+      <tr>
+        <td><%= week.start_date.to_s(:govuk_date_short) %></td>
+
+        <% week.assignments.each do |assignment| %>
+          <td><%= assignment.person.name if assignment.person %></td>
+        <% end %>
+          <td>
+          <%= link_to "Edit", edit_week_path(week) %>
+          <%= link_to "Remove", week, method: :delete, data: { confirm: "Are you sure?" } %>
+        </td>
+      </tr>
     <% end %>
-  </tr>
-</table>
-<%= link_to 'Add a person', new_person_path %>
+      <tr>
+          <td><%= f.date_field :start_date %></td>
+          <%= f.fields_for :assignments,  class: "form-control input-md-3"  do |assignment_fields| %>
+            <td><%= assignment_fields.collection_select(:person_id, Person.with_role(assignment_fields.object.role), :id, :name, :include_blank => true)%></td>
+            <%= assignment_fields.hidden_field(:role) %>
+          <% end %>
+          <td><div ><%= f.submit class: 'btn btn-success' %><div></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
