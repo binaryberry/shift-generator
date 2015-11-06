@@ -13,13 +13,13 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, placeholder: "Sandi Metz" %>
   </div>
   <div class="field">
     <%= f.label :roles %><br>
     <% Week.roles.each do |role| %>
-      <%= f.label role %><br>
       <%= f.check_box :roles, {multiple: true}, role, nil %>
+      <%= f.label role %><br>
     <% end %>
   </div>
   <div class="actions">

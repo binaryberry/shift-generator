@@ -2,18 +2,14 @@
 
 <table>
   <tr>
-
-    <th>Name</th>
     <th>Start Date</th>
     <% Week.roles.each do |role| %>
-      <th><%= role %></th>
+      <th><%= role.humanize %></th>
     <% end %>
-
   </tr>
 
 <% @weeks.each do |week| %>
   <tr>
-    <td><%= week.name %></td>
     <td><%= week.start_date %></td>
     <% week.assignments.each do |assignment| %>
       <td><%= assignment.person.name if assignment.person %></td>
@@ -27,13 +23,13 @@
 <% end %>
   <tr>
     <%= form_for @week do |f| %>
-      <td><%= f.text_field :name %></td>
       <td><%= f.date_field :start_date %></td>
       <%= f.fields_for :assignments do |assignment_fields| %>
-        <td>Person: <%= assignment_fields.collection_select(:person, Person.with_role(assignment_fields.object.role), :id, :name) %></td>
+        <td><%= assignment_fields.collection_select(:person, Person.with_role(assignment_fields.object.role), :id, :name) %></td>
         <%= assignment_fields.hidden_field(:role) %>
       <% end %>
       <td><%= f.submit %></td>
     <% end %>
   </tr>
 </table>
+<%= link_to 'Add a person', new_person_path %>
