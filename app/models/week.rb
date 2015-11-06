@@ -1,13 +1,9 @@
 class Week < ActiveRecord::Base
-  after_create :create_assignments
-  has_many :assignments
+  has_many :assignments, dependent: :destroy
+  accepts_nested_attributes_for :assignments, allow_destroy: true
 
-ROLES = %w(oncall_weekday oncall_weekend primarydev supplementaldev infrastructuredev)
-
-	def create_assignments
-		ROLES.each do |role|
-			assignments.create(role: role)
-		end
-	end
+  def self.roles
+    %w(primary_developer supplemental_developer infrastructure_developer oncall_weekday oncall_weekend )
+  end
 
 end

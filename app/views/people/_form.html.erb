@@ -13,20 +13,14 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, placeholder: "Sandi Metz" %>
   </div>
   <div class="field">
     <%= f.label :roles %><br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "On call - weekdays") %> <br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "On call - weekend") %><br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "Primary Developer") %><br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "Supplemental Developer") %><br>
-    <%= check_box_tag(:roles) %>
-    <%= label_tag(:roles, "Infrastructure Developer") %><br>
+    <% Week.roles.each do |role| %>
+      <%= f.check_box :roles, {multiple: true}, role, nil %>
+      <%= f.label role %><br>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

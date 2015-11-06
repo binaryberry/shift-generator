@@ -73,6 +73,8 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.6.0)
+    formtastic (3.1.3)
+      actionpack (>= 3.2.13)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     globalid (0.3.6)
@@ -192,6 +194,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   cucumber-rails (~> 1.4.2)
   database_cleaner
+  formtastic (~> 3.0)
   govuk_admin_template
   jbuilder (~> 2.0)
   jquery-rails (~> 3.0.4)

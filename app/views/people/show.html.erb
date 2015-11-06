@@ -7,7 +7,7 @@
 
 <p>
   <strong>Roles:</strong>
-  <%= @person.roles %>
+  <%= render 'roles', person: @person %>
 </p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
