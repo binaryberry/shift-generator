@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+.table-header {
+  background-color: $gray-lighter;
+}
+
+.table-header-secondary {
+  background-color: $table-bg-accent;
+  font-weight: bold;
+}
+
+thead .table-header-secondary td {
+  border-bottom: 1px solid #ccc;
+}
+
+.fixed-table-header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  table {
+    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 0.3);
+  }
+}

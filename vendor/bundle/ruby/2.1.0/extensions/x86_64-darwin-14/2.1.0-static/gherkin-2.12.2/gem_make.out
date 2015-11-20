@@ -1,0 +1,14 @@
+/opt/rubies/2.1.2/bin/ruby extconf.rb 
+checking for main() in -lc... yes
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling gherkin_lexer_zh_tw.c
+linking shared-object gherkin_lexer_zh_tw.bundle
+ld: warning: directory not found for option '-L/opt/X11/lib'
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 gherkin_lexer_zh_tw.bundle ./.gem.20151120-74655-q5xwx8
+installing default gherkin_lexer_zh_tw libraries
