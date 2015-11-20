@@ -29,6 +29,6 @@ class WeeksController < ApplicationController
 private
 
   def week_params
-    params.require(:week).permit(:name, :start_date)
+    params.require(:week).permit(:start_date, :assignments_attributes => [:person_id, :role] )
   end
 end

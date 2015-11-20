@@ -1,5 +1,5 @@
 class Assignment < ActiveRecord::Base
-	belongs_to :week
+  belongs_to :week
   belongs_to :person
 
   def attribute(role)
