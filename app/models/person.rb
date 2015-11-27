@@ -10,7 +10,7 @@ class Person < ActiveRecord::Base
   scope :with_role, ->(role) { where("roles @> ?", "{#{role}}") }
 
   def allowed_role
-    if roles.present? && %w(primary_developer supplemental_developer infrastructure_developer oncall_weekday oncall_weekend).include?(roles)
+    if roles.present? && Week::roles.include?(roles)
       errors.add(:allowed_role, "value disallowed")
     end
   end
