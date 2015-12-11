@@ -1,10 +1,10 @@
 FactoryGirl.define do
-  factory :person, class: Person do
+  factory :person do
     name "bob"
     roles ["primary_dev"]
   end
 
-  factory :week, class: Week do
+  factory :week do
     start_date Date.new(2015,11,27)
   end
 
