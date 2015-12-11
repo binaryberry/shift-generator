@@ -1,0 +1,437 @@
+<% content_for(:page_title, 'Admin template style guide') %>
+
+<div class="page-header">
+  <h1>
+    Admin template style guide
+  </h1>
+</div>
+
+<p class="lead">Admin app UIs are powered by <a href="http://getbootstrap.com/css/">bootstrap 3.1</a>, using <a href="https://github.com/twbs/bootstrap-sass/tree/v3.1.0">bootstrap SASS</a> v3.1.0 (<a href="https://github.com/twbs/bootstrap-sass/blob/v3.1.0/vendor/assets/stylesheets/bootstrap/_mixins.scss">mixins</a>), but maintaining bootstrap 2 button styles. This guide documents how we use bootstrap, where the apps have diverged from default styles and any custom styles needed to fill in the gaps.</p>
+
+<h2>Grid</h2>
+<p class="lead">Apps use the <a href="http://getbootstrap.com/css/#grid">default bootstrap</a> <strong>12 column scaleable responsive grid</strong>.</p>
+<div class="row add-bottom-margin">
+  <div class="grid-example col-md-2">col-md-2</div>
+  <div class="grid-example col-md-4">col-md-4</div>
+  <div class="grid-example col-md-6">col-md-6</div>
+</div>
+<div class="row">
+  <div class="grid-example col-md-12">col-md-12</div>
+</div>
+<hr>
+
+<h2>Input widths</h2>
+<div class="row">
+  <div class="col-md-6 lead">
+    <p>Bootstrap 3 inputs always <a href="http://getbootstrap.com/css/#forms">extend to the size of their container</a>. The recommendation from Bootstrap is to wrap form elements with grid classes. Sometimes this isn’t suitable, for instance if a page isn’t using a grid.</p>
+    <p>The gem includes classes to restrict the width of inputs based on column sizes: <code>input-md-x</code> (1 — 11)</p>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Default input</label>
+      <input class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>A short input</label>
+      <input class="input-md-2 form-control" value="input-md-2" />
+    </div>
+    <div class="form-group">
+      <label>A longer input</label>
+      <input class="input-md-4 form-control" value="input-md-4" />
+    </div>
+    <div class="form-group">
+      <label>Inputs too long will collapse</label>
+      <input class="input-md-11 form-control" value="input-md-11" />
+    </div>
+    <div class="form-group">
+      <label>A short select</label>
+      <select class="input-md-2 form-control" value="input-md-11">
+        <option>Option</option>
+      </select>
+    </div>
+    <div class="form-group form-inline">
+      <label>Inline inputs</label><br />
+      <input class="input-md-3 form-control add-right-margin" value="input-md-3" />
+      <input class="input-md-2 form-control" value="input-md-2" />
+    </div>
+  </div>
+</div>
+
+<h3 class="add-bottom-margin">Inputs in a grid</h3>
+<div class="row">
+  <div class="col-md-1">
+    <input class="input-md-1 form-control" value="input-md-1" />
+  </div>
+  <div class="col-md-2">
+    <input class="input-md-2 form-control" value="input-md-2" />
+  </div>
+  <div class="col-md-3">
+    <input class="input-md-3 form-control" value="input-md-3" />
+  </div>
+  <div class="col-md-6">
+    <input class="input-md-6 form-control" value="input-md-6" />
+  </div>
+  <div class="col-md-4 add-top-margin">
+    <input class="input-md-4 form-control" value="input-md-4" />
+  </div>
+  <div class="col-md-8 add-top-margin">
+    <input class="input-md-8 form-control" value="input-md-8" />
+  </div>
+</div>
+<hr>
+
+<h2>Buttons</h2>
+<div class="row">
+  <p class="col-md-6 lead">Despite using bootstrap 3 apps use the classic bootstrap button styles — the buttons have better affordance and clearer focus and active states. The source to override the buttons with the originals is from <a href="https://gist.github.com/Erve1879/6167373">https://gist.github.com/Erve1879/6167373</a>.</p>
+  <div class="col-md-6">
+    <a href="#" class="btn btn-default">Default</a>
+    <a href="#" class="btn btn-primary">Primary</a>
+    <a href="#" class="btn btn-success">Success</a>
+    <a href="#" class="btn btn-info">Info</a>
+    <a href="#" class="btn btn-warning">Warning</a>
+    <a href="#" class="btn btn-danger">Danger</a>
+    <a href="#" class="btn btn-link">Link</a>
+  </div>
+</div>
+<div class="row">
+  <p class="col-md-6 lead">Create and success actions use <code>btn-success</code>.</p>
+  <div class="col-md-6">
+    <a href="#" class="btn btn-success">
+      Save mapping
+    </a>
+  </div>
+</div>
+<div class="row">
+  <p class="col-md-6 lead">When adding an item include an <code>icon-plus</code> icon.</p>
+  <div class="col-md-6">
+    <a href="#" class="btn btn-default">
+      <i class="glyphicon glyphicon-plus"></i> Add mapping
+    </a>
+  </div>
+</div>
+<hr>
+
+<h2>Dates</h2>
+<div class="row">
+  <p class="col-md-6 lead">
+    The gem includes date and time formats which match the <a href="https://www.gov.uk/design-principles/style-guide/style-points#style-dates-and-times">recommended style</a>.
+  </p>
+  <section class="col-md-6">
+    <h2 class="remove-top-margin">Default</h2>
+    <% halloween = Date.new(2013, 10, 31) %>
+    <blockquote><%= halloween %><br />
+      <%= halloween.to_time %>
+    </blockquote>
+
+    <h2>Friendly</h2>
+    <blockquote>
+      <dl class="remove-bottom-margin">
+        <dt class="add-label-margin"><code>:govuk_date</code></dt>
+        <dd><%= halloween.to_s(:govuk_date) %><br />
+          <%= halloween.to_time.to_s(:govuk_date) %></dd>
+        <dt class="add-top-margin add-label-margin"><code>:govuk_date_short</code></dt>
+        <dd><%= halloween.to_s(:govuk_date_short) %><br />
+          <%= halloween.to_time.to_s(:govuk_date_short) %></dd>
+        <dt class="add-top-margin add-label-margin"><code>:govuk_time</code></dt>
+        <dd><%= halloween.to_time.to_s(:govuk_time) %></dd>
+      </dl>
+    </blockquote>
+  </section>
+</div>
+<hr>
+
+<h2>Page headers with subtitles</h2>
+<div class="row">
+  <p class="col-md-6 lead">Page headers have a single pixel bottom-border. Subtitles - if used - run underneath this.</p>
+  <section class="headers col-md-6">
+    <header>
+      <div class="page-title">
+        <h1>
+          <span class="small">www.ukspaceagency.com</span>
+          UK Space Agency
+        </h1>
+      </div>
+      <p class="subtitle">UKSA is an executive agency of <a href="<%= @normal_link_href %>">BIS</a></p>
+
+      <div class="page-title with-border">
+        <h1>
+          <span class="small">www.ukspaceagency.com</span>
+          UK Space Agency
+        </h1>
+      </div>
+      <p class="subtitle">UKSA is an executive agency of <a href="<%= @normal_link_href %>">BIS</a></p>
+
+    </header>
+  </section>
+</div>
+<hr>
+
+<h2>Tables</h2>
+<div class="row">
+  <div class="col-md-6 lead">
+    <p>When using a table with two layers of headings, usually for interacting with table content, <code>table-header</code> and <code>table-header-secondary</code> classes are used.</p>
+
+    <p>The second example shows a table with selectable rows. Selected rows highlight in yellow. The checkbox in the header selects all rows.</p>
+  </div>
+  <ul class="col-md-6">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="table-header">
+          <th>Primary header</th>
+        </tr>
+        <tr class="table-header-secondary">
+          <th>Secondary header</th>
+        </tr>
+      </thead>
+    <tbody>
+      <tr>
+        <td>Typical row</td>
+      </tr>
+      <tr>
+        <td>Typical row</td>
+      </tr>
+    </tbody>
+    </table>
+
+    <table class="table table-bordered table-hover" data-module="selectable-table">
+      <thead>
+        <tr class="table-header">
+          <th></th>
+          <th>Primary header</th>
+        </tr>
+        <tr class="table-header-secondary">
+          <th class="selectable-row">
+            <div class="relative">
+              <label>
+                <input type="checkbox" class="js-toggle-all" />
+              </label>
+            </div>
+          </th>
+          <th><a href="<%= @normal_link_href %>" class="btn btn-default">Action</a></th>
+        </tr>
+      </thead>
+    <tbody>
+      <tr class="selected-row">
+        <td class="selectable-row">
+          <div class="relative">
+            <label>
+              <input type="checkbox" checked="checked" class="js-toggle-row" />
+            </label>
+          </div>
+        </td>
+        <td>Selected row</td>
+      </tr>
+      <tr>
+        <td class="selectable-row">
+          <div class="relative">
+            <label>
+              <input type="checkbox" />
+            </label>
+          </div>
+        </td>
+        <td>Typical row</td>
+      </tr>
+    </tbody>
+    </table>
+  </ul>
+</div>
+<hr>
+
+<h2>Links</h2>
+<div class="row">
+  <div class="col-md-6 lead">
+    <p>To match bootstrap’s muted text, a muted link class is available.</p>
+    <p>Purple <code>:visited</code> styles have been added. These apply to the main content but not to buttons.</p>
+  </div>
+  <div class="col-md-6">
+    <a href="<%= @normal_link_href %>" class="link-muted">Muted link</a><br><br>
+    <a href="<%= @visited_link_href %>">Visited link</a><br><br>
+    <a href="<%= @normal_link_href %>">Normal link</a><br><br>
+    An <a href="<%= @visited_link_href %>" class="link-inherit">underlined link</a> that inherits its colour<br><br>
+    <a href="<%= @visited_link_href %>" class="btn btn-default">Visited button link</a><br><br>
+    <a href="<%= @visited_link_href %>" class="btn btn-success">Another visited button link</a><br><br>
+  </div>
+</div>
+
+<h3>Links in Bootstrap components</h3>
+<div class="row">
+  <div class="col-md-3">
+    <h4 class="add-bottom-margin">List group with content</h4>
+    <div class="list-group">
+      <a href="<%= @visited_link_href %>" class="list-group-item active">
+        <h4 class="list-group-item-heading">Active visited link</h4>
+        <p class="list-group-item-text">Active visited link</p>
+      </a>
+      <a href="<%= @normal_link_href %>" class="list-group-item active">
+        <h4 class="list-group-item-heading">Active normal link</h4>
+        <p class="list-group-item-text">Active normal link</p>
+      </a>
+      <a href="<%= @visited_link_href %>" class="list-group-item">
+        <h4 class="list-group-item-heading">Visited link</h4>
+        <p class="list-group-item-text">Visited link</p>
+      </a>
+      <a href="<%= @normal_link_href %>" class="list-group-item">
+        <h4 class="list-group-item-heading">Normal link</h4>
+        <p class="list-group-item-text">Normal link</p>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <h4 class="add-bottom-margin">List group</h4>
+    <div class="list-group">
+      <a href="<%= @visited_link_href %>" class="list-group-item active">
+        Active visited link style
+      </a>
+      <a href="<%= @normal_link_href %>" class="list-group-item active">
+        Active normal link style
+      </a>
+      <a href="<%= @visited_link_href %>" class="list-group-item">Visited link</a>
+      <a href="<%= @normal_link_href %>" class="list-group-item">Normal link</a>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <h4 class="add-bottom-margin">Navigation pills</h4>
+    <ul class="nav nav-pills nav-stacked">
+      <li class="active"><a href="<%= @visited_link_href %>">Active visited link</a></li>
+      <li class="active"><a href="<%= @normal_link_href %>">Active normal link</a></li>
+      <li><a href="<%= @visited_link_href %>">Visited link</a></li>
+      <li><a href="<%= @normal_link_href %>">Normal link</a></li>
+      <li>
+        <div class="btn-group open">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Dropdown in navigation pill <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="<%= @visited_link_href %>">Visited link</a></li>
+            <li><a href="<%= @normal_link_href %>">Normal link</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-3">
+    <h4 class="add-bottom-margin">Dropdowns</h4>
+    <!-- Single button -->
+    <div class="btn-group open">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Action <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li class="active"><a href="<%= @visited_link_href %>">Active visited link</a></li>
+        <li class="active"><a href="<%= @normal_link_href %>">Active normal link</a></li>
+        <li><a href="<%= @visited_link_href %>">Visited link</a></li>
+        <li><a href="<%= @normal_link_href %>">Normal link</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<hr>
+
+<h2>Nav lists</h2>
+<div class="row">
+  <p class="col-md-4 lead">
+    <a href="http://stackoverflow.com/questions/18281636/what-replaces-nav-lists-in-bootstrap-3">Bootstrap 3 removed</a> the <code>nav-list</code> classes and <a href="http://getbootstrap.com/2.3.2/components.html#navs">design pattern</a>. For backwards compatibility these styles have been put back, but it’s advised to avoid this pattern.
+  </p>
+  <div class="col-md-4">
+    <div class="well sidebar-nav">
+      <ul class="nav nav-list">
+        <li class="nav-header">Filter by Status</li>
+        <li class="active status-option drafts">
+          <a href="<%= @normal_link_href %>">Normal active <span class="badge pull-right">80</span></a>
+        </li>
+        <li class="status-option amends_needed">
+          <a href="<%= @normal_link_href %>">Normal link <span class="badge pull-right">33</span></a>
+        </li>
+        <li class="active status-option in_review">
+          <a href="<%= @visited_link_href %>">Visited active <span class="badge pull-right">19</span></a>
+        </li>
+        <li class="status-option out_for_fact_check">
+          <a href="<%= @visited_link_href %>">Visited link <span class="badge pull-right">71</span></a>
+        </li>
+        <li class="status-option fact_check_received">
+          <a href="<%= @normal_link_href %>">Fact check received <span class="badge pull-right">15</span></a>
+        </li>
+        <li class="status-option ready">
+          <a href="<%= @normal_link_href %>">Ready <span class="badge pull-right">89</span></a>
+        </li>
+        <li class="status-option scheduled_for_publishing">
+          <a href="<%= @normal_link_href %>">Scheduled <span class="badge pull-right">3</span></a>
+        </li>
+        <li class="status-option published">
+          <a href="<%= @normal_link_href %>">Published <span class="badge pull-right">3161</span></a>
+        </li>
+        <li class="status-option archived">
+          <a href="<%= @normal_link_href %>">Archived <span class="badge pull-right">12583</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="well">
+      <ul class="nav nav-list">
+        <li class="nav-header">List header</li>
+        <li class="active"><a href="<%= @normal_link_href %>">Home</a></li>
+        <li><a href="<%= @normal_link_href %>">Library</a></li>
+        <li><a href="<%= @normal_link_href %>">Applications</a></li>
+        <li class="nav-header">Another list header</li>
+        <li><a href="<%= @normal_link_href %>">Profile</a></li>
+        <li><a href="<%= @normal_link_href %>">Settings</a></li>
+        <li><a href="<%= @normal_link_href %>">Drafts</a></li>
+        <li class="divider"></li>
+        <li><a href="<%= @normal_link_href %>">Help</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<hr>
+
+<h2>Big number</h2>
+<p class="big-number text-muted">100 hits</p>
+<hr>
+
+<h2>Big message</h2>
+<p class="big-message text-muted">A big message</p>
+<hr>
+
+<h2>Highlights</h2>
+<div class="row add-bottom-margin">
+  <p class="col-md-6 lead">Highlights are a reproduction of the <a href="https://www.gov.uk/vat-rates">GOV.UK answer style</a> and use colours from the <a href="https://www.gov.uk/service-manual/user-centered-design/resources/colour-palettes">style guide palette</a>. They are predominantly used on dashboards (see transition).</p>
+  <div class="col-md-6">
+    <div class="highlight add-bottom-margin">
+      <p>Some highlighted text</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="highlight add-bottom-margin">
+      <span class="big-number">140 days</span>
+      <p>since transition<br />on 14 January 2013</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="highlight">
+      <p class="big-message">A big message in a highlight</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="highlight highlight-turquoise">
+      <p class="big-message">Turquoise &amp; Live</p>
+    </div>
+    <div class="highlight highlight-orange">
+      <p class="big-message">Orange &amp; Pre-transition</p>
+    </div>
+  </div>
+</div>
+<hr>
+
+<h2>No content</h2>
+<div class="row">
+  <p class="col-md-6 lead">A large but light style which applies to the empty state, eg when there are no mappings or hits. The bordered version mimics bootstrap table styles.</p>
+  <div class="col-md-6">
+    <p class="no-content">No mappings available</p>
+    <p class="no-content no-content-bordered">Bordered message</p>
+    <p class="no-content">A longer, multi-line no content message. Do labore et <a href="<%= @normal_link_href %>">dolore magna aliqua</a>.</p>
+  </div>
+</div>
+<hr>

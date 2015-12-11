@@ -8,4 +8,9 @@ class Week < ActiveRecord::Base
     %w(primary_developer supplemental_developer infrastructure_developer oncall_weekday oncall_weekend )
   end
 
+  def get_assignments
+    assignments = []
+    self.assignments.each {|assignment| assignments << assignment}
+  end
+
 end
