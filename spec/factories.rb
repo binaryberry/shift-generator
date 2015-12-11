@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :person do
-    name "bob"
+    name { FFaker::Name.first_name }
     roles ["primary_dev"]
   end
 

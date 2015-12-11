@@ -6,8 +6,8 @@ describe Scheduler do
   let!(:scheduler) { Scheduler.new }
   let(:new_week) { create(:week, start_date: Date.new(2015,11,27)) }
   let(:previous_week) { create(:week, start_date: Date.new(2015,11,20)) }
-  let(:bob) { create(:person, name: "bob", roles: ["primary_dev"]) }
-  let(:alex) { create(:person, name: "alex", roles: ["supplemental_dev"]) }
+  let(:bob) { create(:person, roles: ["primary_dev"]) }
+  let(:alex) { create(:person, roles: ["supplemental_dev"]) }
   let!(:assignment_one) { create(:primary_dev_assignment, week: previous_week, person: bob) }
   let!(:assignment_two) { create(:supplemental_dev_assignment, week: previous_week, person: alex) }
 
