@@ -9,8 +9,8 @@ class Week < ActiveRecord::Base
   end
 
   def get_assignments
-    assignments = []
-    self.assignments.each {|assignment| assignments << assignment}
+    assignments_list = []
+    self.assignments.each {|assignment| assignments_list << assignment}
   end
 
 end
