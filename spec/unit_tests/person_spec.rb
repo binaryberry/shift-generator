@@ -2,29 +2,29 @@ require "rails_helper"
 
 describe Person do
 
-  let!(:bob) { Person.create!(name: "bob", roles: ['infrastructure_developer']) }
-  let!(:alex) { Person.create!(name: "Alex", roles: ['primary_developer', 'supplemental_developer']) }
+  let!(:infrastructure_dev) { create(:infrastructure_dev) }
+  let!(:primary_and_supplemental_dev) { create(:primary_and_supplemental_dev) }
+  let!(:supplemental_dev) { create(:supplemental_dev) }
 
   it "allows to see the list of available developers for each role" do
-    daz = Person.create!(name: "Daz Ahern", roles: ['supplemental_developer'])
-    expect(Person.with_role("supplemental_developer")).to contain_exactly(daz, alex)
+    expect(Person.with_role("supplemental_developer")).to contain_exactly(primary_and_supplemental_dev, supplemental_dev)
   end
 
   it "prevents duplicates" do
-    second_bob = Person.create(name: "bob", roles: ['infrastructuredev'])
-    expect(Person.where(name: "bob").count).to eq 1
+    Person.create(name: infrastructure_dev.name, roles: ['infrastructuredev'])
+    expect(Person.where(name: infrastructure_dev.name).count).to eq 1
   end
 
   it "can be both primary and supplemental dev" do
-    expect(Person.find_by(name: "Alex")).to have_attributes(roles: ['primary_developer', 'supplemental_developer'])
+    expect(Person.find_by(name: primary_and_supplemental_dev.name)).to have_attributes(roles: ['primary_developer', 'supplemental_developer'])
   end
 
   it "can't be primary and infrastructure dev" do
-    expect{Person.create!(name: "John", roles: ['primary_developer', 'infrastructure_developer'])}.to raise_error
+    expect{Person.create!(roles: ['primary_developer', 'infrastructure_developer'])}.to raise_error
   end
 
   it "can't be supplemental and infrastructure dev" do
-    expect{Person.create!(name: "John", roles: ['primary_developer', 'infrastructure_developer'])}.to raise_error
+    expect{Person.create!(roles: ['primary_developer', 'infrastructure_developer'])}.to raise_error
   end
 
 end

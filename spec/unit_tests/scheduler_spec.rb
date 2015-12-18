@@ -4,23 +4,30 @@ require "spec_helper"
 describe Scheduler do
 
   let!(:scheduler) { Scheduler.new }
-  let(:new_week) { create(:week, start_date: Date.new(2015,11,27)) }
-  let(:previous_week) { create(:week, start_date: Date.new(2015,11,20)) }
-  let(:bob) { create(:person, roles: ["primary_dev"]) }
-  let(:alex) { create(:person, roles: ["supplemental_dev"]) }
-  let!(:assignment_one) { create(:primary_dev_assignment, week: previous_week, person: bob) }
-  let!(:assignment_two) { create(:supplemental_dev_assignment, week: previous_week, person: alex) }
+  let(:week_5) { create(:week, start_date: Date.new(2015,11,27)) }
+  let(:week_4) { create(:week, start_date: Date.new(2015,11,20)) }
+  let(:week_3) { create(:week, start_date: Date.new(2015,11,13)) }
+  let(:week_2) { create(:week, start_date: Date.new(2015,11,06)) }
+  let(:week_1) { create(:week, start_date: Date.new(2015,10,31)) }
+  let!(:assignment_p4) { create(:primary_dev_assignment, week: week_4)}
+  let!(:assignment_s4) { create(:supplemental_dev_assignment, week: week_4)}
+  let!(:assignment_i4) { create(:infrastructure_dev_assignment, week: week_4)}
+  let!(:assignment_p3) { create(:primary_dev_assignment, week: week_3)}
+  let!(:assignment_s3) { create(:supplemental_dev_assignment, week: week_3)}
+  let!(:assignment_i3) { create(:infrastructure_dev_assignment, week: week_3)}
+  let!(:assignment_p2) { create(:primary_dev_assignment, week: week_2)}
+  let!(:assignment_s2) { create(:supplemental_dev_assignment, week: week_2)}
+  let!(:assignment_i2) { create(:infrastructure_dev_assignment, week: week_2)}
+  let!(:assignment_p1) { create(:primary_dev_assignment, week: week_1)}
+  let!(:assignment_s1) { create(:supplemental_dev_assignment, week: week_1)}
+  let!(:assignment_i1) { create(:infrastructure_dev_assignment, week: week_1)}
 
   	it "knows about the assignments of the previous week" do
-      expect(scheduler.history(new_week)).to match_array [assignment_one, assignment_two]
+      expect(scheduler.history(week_5)).to match_array [assignment_p4, assignment_s4, assignment_i4]
   	end
 
-    it "knows about the assignments of the previous 3 weeks" do
-      pre_previous_week = create(:week, start_date: Date.new(2015,11,13))
-      assignment_three = create(:primary_dev_assignment, week: pre_previous_week, person: bob)
-      assignment_four = create(:supplemental_dev_assignment, week: pre_previous_week, person: alex)
-
-      expect(scheduler.history(new_week, 2)).to match_array [assignment_one, assignment_two, assignment_three, assignment_four]
+    it "knows about the assignments of the previous 2 weeks" do
+      expect(scheduler.history(week_5, 2)).to match_array [assignment_p4, assignment_s4, assignment_i4, assignment_p3, assignment_s3, assignment_i3]
     end
 
 #use shuffle to randomise things. Stub it to remove randomness. One method per rule, each returns a list of valid devs. note to self: could be a good indicator of too many rules and not enough devs. 
