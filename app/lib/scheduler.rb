@@ -1,6 +1,6 @@
 class Scheduler
 
-  attr_reader :assignments
+  attr_reader :assignments, :week
 
   def initialize(week)
     @week = week
@@ -13,8 +13,13 @@ class Scheduler
     assignments_list.flatten
   end
 
-  def people_available?(role)
+  def people_available(role)
     Person.with_role(role)
+  end
+
+  def assign(role)
+    person = people_available(role).sample
+    Assignment.create(week: self.week, person: person)
   end
 
 private

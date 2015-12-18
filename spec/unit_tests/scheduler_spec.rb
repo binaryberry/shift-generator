@@ -32,9 +32,16 @@ describe Scheduler do
   it "knows the available people for each type of role" do
     create(:primary_and_supplemental_dev)
     aggregate_failures("available people") do
-      expect(scheduler.people_available?("primary_developer").count).to eq 5
-      expect(scheduler.people_available?("supplemental_developer").count).to eq 5
-      expect(scheduler.people_available?("infrastructure_developer").count).to eq 4
+      expect(scheduler.people_available("primary_developer").count).to eq 5
+      expect(scheduler.people_available("supplemental_developer").count).to eq 5
+      expect(scheduler.people_available("infrastructure_developer").count).to eq 4
     end
   end
+
+  it "can assign a random available person to an assignment" do
+    new_assignment = scheduler.assign("primary_developer")
+    expect(scheduler.week.assignments).to include(new_assignment)
+  end
+
+
 end
