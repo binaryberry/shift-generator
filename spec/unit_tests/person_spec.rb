@@ -20,11 +20,11 @@ describe Person do
   end
 
   it "can't be primary and infrastructure dev" do
-    expect{Person.create!(roles: ['primary_developer', 'infrastructure_developer'])}.to raise_error
+    expect{Person.create!(roles: ['primary_developer', 'infrastructure_developer'])}.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it "can't be supplemental and infrastructure dev" do
-    expect{Person.create!(roles: ['primary_developer', 'infrastructure_developer'])}.to raise_error
+    expect{Person.create!(roles: ['primary_developer', 'infrastructure_developer'])}.to raise_error(ActiveRecord::RecordInvalid)
   end
 
 end
