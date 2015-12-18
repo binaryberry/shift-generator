@@ -8,11 +8,13 @@ class Scheduler
 
   def history(weeks_ago=1)
     find_list_of_weeks(weeks_ago)
-    @assignments = @weeks.map(&:get_assignments).flatten
+    assignments_list = []
+    @weeks.each{|w| assignments_list << w.assignments}
+    assignments_list.flatten
   end
 
   def people_available?(role)
-    Person.with_role(role).to_a
+    Person.with_role(role)
   end
 
 private
