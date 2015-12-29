@@ -14,12 +14,17 @@ class Scheduler
   end
 
   def people_available(role)
-    Person.with_role(role)
+    list = Person.with_role(role).to_a
+    no_recent_assignment(list)
   end
 
   def assign(role)
     person = people_available(role).sample
     Assignment.create(week: self.week, person: person)
+  end
+
+  def no_recent_assignment(list)
+    list.reject{|person| person.recent_assignment(@week)}
   end
 
 private
