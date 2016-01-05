@@ -5,7 +5,7 @@ class Week < ActiveRecord::Base
 
 
   def self.roles
-    %w(primary_developer supplemental_developer infrastructure_developer oncall_weekday oncall_weekend )
+    %w(primary_developer supplemental_developer infrastructure_developer oncall_weekday oncall_weekend)
   end
 
 end

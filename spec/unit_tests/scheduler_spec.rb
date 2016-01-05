@@ -21,23 +21,6 @@ describe Scheduler do
   let!(:assignment_s1) { create(:supplemental_dev_assignment, week: week_1)}
   let!(:assignment_i1) { create(:infrastructure_dev_assignment, week: week_1)}
 
-   #PAUL: this seems to now work because my assignments are not attached to the scheduler, although they are attached to that week. pourquoi?
-# def create_assignments
-    #   assignment_p4 = create(:primary_dev_assignment, week: week_4)
-    #   assignment_s4 = create(:supplemental_dev_assignment, week: week_4)
-    #   assignment_i4 = create(:infrastructure_dev_assignment, week: week_4)
-    #   assignment_p3 = create(:primary_dev_assignment, week: week_3)
-    #   assignment_s3 = create(:supplemental_dev_assignment, week: week_3)
-    #   assignment_i3 = create(:infrastructure_dev_assignment, week: week_3)
-    #   assignment_p2 = create(:primary_dev_assignment, week: week_2)
-    #   assignment_s2 = create(:supplemental_dev_assignment, week: week_2)
-    #   assignment_i2 = create(:infrastructure_dev_assignment, week: week_2)
-    #   assignment_p1 = create(:primary_dev_assignment, week: week_1)
-    #   assignment_s1 = create(:supplemental_dev_assignment, week: week_1)
-    #   assignment_i1 = create(:infrastructure_dev_assignment, week: week_1)
-    # end
-
-
 	it "knows about the assignments of the previous week" do
     expect(scheduler.history).to match_array [assignment_p4, assignment_s4, assignment_i4]
 	end
@@ -59,7 +42,7 @@ describe Scheduler do
   end
 
   it "can assign a random available person to an assignment" do
-    create(:primary_dev)
+    available_dev = create(:primary_dev)
     new_assignment = scheduler.assign("primary_developer")
     expect(scheduler.week.assignments).to include(new_assignment)
     expect(new_assignment.person.roles).to include("primary_developer")
@@ -73,4 +56,26 @@ describe Scheduler do
       expect(scheduler.no_recent_assignment(list)).to eq [new_person]
     end
   end
+
+  context "incompatible_shifts rule" do
+    it "ensures people are not on 2nd line and on call in the same week" do
+      
+    end
+  end
 end
+
+#PAUL: this seems to now work because my assignments are not attached to the scheduler, although they are attached to that week. pourquoi?
+# def create_assignments
+#   assignment_p4 = create(:primary_dev_assignment, week: week_4)
+#   assignment_s4 = create(:supplemental_dev_assignment, week: week_4)
+#   assignment_i4 = create(:infrastructure_dev_assignment, week: week_4)
+#   assignment_p3 = create(:primary_dev_assignment, week: week_3)
+#   assignment_s3 = create(:supplemental_dev_assignment, week: week_3)
+#   assignment_i3 = create(:infrastructure_dev_assignment, week: week_3)
+#   assignment_p2 = create(:primary_dev_assignment, week: week_2)
+#   assignment_s2 = create(:supplemental_dev_assignment, week: week_2)
+#   assignment_i2 = create(:infrastructure_dev_assignment, week: week_2)
+#   assignment_p1 = create(:primary_dev_assignment, week: week_1)
+#   assignment_s1 = create(:supplemental_dev_assignment, week: week_1)
+#   assignment_i1 = create(:infrastructure_dev_assignment, week: week_1)
+# end

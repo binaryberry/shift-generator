@@ -14,6 +14,16 @@ FactoryGirl.define do
     roles ["infrastructure_developer"]
   end
 
+  factory :oncall_weekday_dev, class: Person  do
+    name { FFaker::Name.first_name }
+    roles ["oncall_weekday"]
+  end
+
+  factory :oncall_weekend_dev, class: Person  do
+    name { FFaker::Name.first_name }
+    roles ["oncall_weekend"]
+  end
+
   factory :primary_and_supplemental_dev, class: Person  do
     name { FFaker::Name.first_name }
     roles ["primary_developer", "supplemental_developer"]
@@ -36,6 +46,18 @@ FactoryGirl.define do
   end
 
   factory :infrastructure_dev_assignment, class: Assignment do
+    association :week, factory: :week
+    association :person, factory: :infrastructure_dev
+    role "infrastructure_dev"
+  end
+
+  factory :oncall_weekday_assignment, class: Assignment do
+    association :week, factory: :week
+    association :person, factory: :infrastructure_dev
+    role "infrastructure_dev"
+  end
+
+  factory :oncall_weekend_assignment, class: Assignment do
     association :week, factory: :week
     association :person, factory: :infrastructure_dev
     role "infrastructure_dev"
