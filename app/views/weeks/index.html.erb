@@ -30,7 +30,9 @@
         <td><%= week.start_date.to_s(:govuk_date_short) %></td>
 
         <% week.assignments.each do |assignment| %>
-          <td><%= assignment.person.name if assignment.person %></td>
+          <% if assignment.person %>
+            <td><%= assignment.person.name%></td>
+          <% end %>
         <% end %>
           <td>
           <%= link_to "Edit", edit_week_path(week) %>

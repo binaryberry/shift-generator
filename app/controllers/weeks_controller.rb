@@ -10,13 +10,14 @@ class WeeksController < ApplicationController
 	end
 
   def create
-    @week = Week.create(week_params)
+    @week = Week.new(week_params)
+    scheduler = Scheduler.new(@week)
+    Week.roles.each{|role| scheduler.assign(role)}
     redirect_to weeks_path
   end
 
   def edit
     @week = Week.find(params[:id])
-    redirect_to weeks_path
   end
 
   def destroy
