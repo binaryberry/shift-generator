@@ -24,7 +24,7 @@ class Person < ActiveRecord::Base
   end
 
   def self.teams
-    ["Core Formats", "Custom", "Finding Things", "Performance Platform", "Publishing Platform", "Infrastructure", "Other"]
+    ["Core Formats", "Custom", "Finding Things", "Infrastructure", "Performance Platform", "Publishing Platform", "Other"]
   end
 
 end
