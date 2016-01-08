@@ -1,9 +1,11 @@
+require 'date'
+
 class Week < ActiveRecord::Base
   has_many :assignments, dependent: :destroy
   accepts_nested_attributes_for :assignments, allow_destroy: true
-  validates :start_date, presence: true
+  validates :start_date, presence: true, uniqueness:true
   validates_each :start_date do |record, attr, value|
-    record.errors.add(attr, 'week must start on a Wednesday') if value.wednesday? == false
+    record.errors.add(attr, 'week must start on a Wednesday') if value && value.wednesday? == false
   end
 
 
