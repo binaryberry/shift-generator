@@ -20,7 +20,7 @@ class Person < ActiveRecord::Base
     assignments = self.assignments
     recent_in_days = 28
     range = Range.new(week.start_date - recent_in_days, week.start_date)
-    assignments.any? {|assignment| range.cover?(assignment.week.start_date) }
+    assignments.any? {|assignment| range.cover?(assignment.week.start_date) unless assignment.week.nil? }
   end
 
   def self.teams

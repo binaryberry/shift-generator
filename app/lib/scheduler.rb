@@ -20,11 +20,18 @@ class Scheduler
 
   def assign(role)
     person = people_available(role).sample
-    Assignment.create(week: self.week, person: person)
+    old_assignment ||= Assignment.find_by(week: self.week)
+    old_assignment.destroy if old_assignment
+    assignment = Assignment.new(week: self.week, person: person, role: role)
+    assignment.save!
   end
 
   def no_recent_assignment(list)
     list.reject{|person| person.recent_assignment(@week)}
+  end
+
+  def assignments
+    @week.assignments
   end
 
 private
