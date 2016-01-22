@@ -1,6 +1,7 @@
 class Person < ActiveRecord::Base
 	has_many :assignments, dependent: :destroy
-  validates_each :roles, presence: true do |record, attr, value| 
+	has_many :weeks, through: :assignments, dependent: :destroy
+  validates_each :roles, presence: true do |record, attr, value|
     has_incompatibility = value.include?("primary_developer") || value.include?("supplemental_developer")
     record.errors.add(attr, "Infrastructure Developers can't also be Primary or Supplemental") if value.include?("infrastructure_developer") && has_incompatibility
   end
@@ -14,4 +15,16 @@ class Person < ActiveRecord::Base
       errors.add(:allowed_role, "value disallowed")
     end
   end
+
+  def recent_assignment(week)
+    assignments = self.assignments
+    recent_in_days = 28
+    range = Range.new(week.start_date - recent_in_days, week.start_date)
+    assignments.any? {|assignment| range.cover?(assignment.week.start_date) unless assignment.week.nil? }
+  end
+
+  def self.teams
+    ["Core Formats", "Custom", "Finding Things", "Infrastructure", "Performance Platform", "Publishing Platform", "Other"]
+  end
+
 end

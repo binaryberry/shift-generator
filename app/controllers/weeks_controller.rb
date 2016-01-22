@@ -1,8 +1,7 @@
 class WeeksController < ApplicationController
+  before_action {@weeks = Week.all.order(:start_date)}
 
 	def index
-		@weeks = Week.all
-
     @week = Week.new
     Week.roles.each do |role|
       @week.assignments.build(role: role)
@@ -10,13 +9,18 @@ class WeeksController < ApplicationController
 	end
 
   def create
-    @week = Week.create(week_params)
-    redirect_to weeks_path
+    @week = Week.new(week_params)
+    scheduler = Scheduler.new(@week)
+    Week.roles.each{|role| scheduler.assign(role)}
+    if @week.persisted?
+      redirect_to weeks_path if @week.persisted?
+    else
+      render 'index'
+    end
   end
 
   def edit
     @week = Week.find(params[:id])
-    redirect_to weeks_path
   end
 
   def destroy
