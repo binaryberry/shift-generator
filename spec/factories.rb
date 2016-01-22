@@ -1,31 +1,31 @@
 FactoryGirl.define do
   factory :primary_dev, class: Person  do
-    name { FFaker::Name.first_name }
+    sequence(:name) {|n| FFaker::Name.first_name + " (#{n})"}
     roles ["primary_developer"]
   end
 
   factory :supplemental_dev, class: Person  do
-    name { FFaker::Name.first_name }
+    sequence(:name) {|n| FFaker::Name.first_name + " (#{n})"}
     roles ["supplemental_developer"]
   end
 
   factory :infrastructure_dev, class: Person  do
-    name { FFaker::Name.first_name }
+    sequence(:name) {|n| FFaker::Name.first_name + " (#{n})"}
     roles ["infrastructure_developer"]
   end
 
   factory :oncall_weekday_dev, class: Person  do
-    name { FFaker::Name.first_name }
+    sequence(:name) {|n| FFaker::Name.first_name + " (#{n})"}
     roles ["oncall_weekday"]
   end
 
   factory :oncall_weekend_dev, class: Person  do
-    name { FFaker::Name.first_name }
+    sequence(:name) {|n| FFaker::Name.first_name + " (#{n})"}
     roles ["oncall_weekend"]
   end
 
   factory :primary_and_supplemental_dev, class: Person  do
-    name { FFaker::Name.first_name }
+    sequence(:name) {|n| FFaker::Name.first_name + " (#{n})"}
     roles ["primary_developer", "supplemental_developer"]
   end
 
