@@ -30,4 +30,22 @@ describe Week do
     expect(week.assignments.all.count).to eq 1
   end
 
+  context "when there are no other weeks in the database" do
+    it "defaults the start date to next Wednesday" do
+      Timecop.freeze(Time.local(2015, 11, 28))
+      expect(Week.count).to eq 0
+      expect(Week.default_start_date).to eq Date.new(2015,12,02)
+    end
+  end
+
+  context "when some weeks exist in the database" do
+    it "defaults the start date to the Wednesday following the latest week" do
+      Timecop.freeze(Time.local(2015, 11, 21))
+      expect(Week.count).to eq 0
+      week = Week.create!(start_date: Date.new(2015,11,25))
+      expect(Week.default_start_date).to eq Date.new(2015,12,02)
+    end
+
+  end
+
 end

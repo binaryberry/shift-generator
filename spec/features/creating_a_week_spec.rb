@@ -15,7 +15,7 @@ describe 'creating a week' do
       visit "/weeks"
       click_button "Create Week"
       within "table tbody tr td:nth-of-type(4)#assignment" do
-        expect(page.text).to match(/\A\b.+\b\s\W\d+\W\z/)
+        expect(page.text).to match(/\A\b.+\b\s\W\d+\W\z/) #developer names look like: Alan (1) due to Faker Gem and sequencing.
       end
     end
 
