@@ -20,11 +20,14 @@ describe Week do
     expect{Week.create!(start_date: Date.new(2015,11,25))}.to raise_error(ActiveRecord::RecordInvalid)
   end
 
-  xit "doesn't allow an assignment if it's for a role that is already taken" do
+  it "can only have one assignment per role" do
+    role = Week.roles[0]
     week = Week.create!(start_date: Date.new(2015,11,25))
     scheduler = Scheduler.new(week)
-    scheduler.assign(Week.roles[0])
-    expect{scheduler.assign(Week.roles[0])}.to raise_error(ActiveRecord::RecordInvalid)
+    scheduler.assign(role)
+    scheduler.assign(role)
+    scheduler.assign(role)
+    expect(week.assignments.all.count).to eq 1
   end
 
 end
