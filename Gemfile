@@ -52,4 +52,5 @@ group :test do
   gem "factory_girl_rails", "~> 4.0"
   gem 'ffaker', '~> 2.1'
   gem 'capybara-screenshot'
+  gem 'timecop', '~> 0.8.0'
 end

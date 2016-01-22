@@ -18,4 +18,21 @@ class Week < ActiveRecord::Base
     %w(primary_developer supplemental_developer infrastructure_developer oncall_weekday oncall_weekend)
   end
 
+  def self.default_start_date
+    initial_date = generate_initial_date
+    default_date = initial_date
+    until default_date.wednesday? do
+      default_date += 1
+    end
+    default_date
+  end
+
+private
+
+  def self.generate_initial_date
+    return Date.today if Week.count == 0
+    latest_week = Week.order("start_date desc").limit(1)[0]
+    latest_week.start_date + 7
+  end
+
 end

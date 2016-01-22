@@ -13,7 +13,7 @@ class WeeksController < ApplicationController
     scheduler = Scheduler.new(@week)
     Week.roles.each{|role| scheduler.assign(role)}
     if @week.persisted?
-      redirect_to weeks_path if @week.persisted?
+      redirect_to weeks_path 
     else
       render 'index'
     end
