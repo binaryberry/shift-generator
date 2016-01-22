@@ -7,6 +7,11 @@ class Week < ActiveRecord::Base
   validates_each :start_date do |record, attr, value|
     record.errors.add(attr, 'week must start on a Wednesday') if value && value.wednesday? == false
   end
+  validates_each :assignments do |record, attr, _value|
+    Week.roles.each do |r|
+      record.errors.add(attr, 'only one role per week') if record.assignments.exists?(role: r)
+    end
+  end
 
 
   def self.roles

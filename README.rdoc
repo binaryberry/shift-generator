@@ -1,0 +1,7 @@
+== README
+
+Currently, GOV.UK 2nd line and oncall shifts are determined manually through an excel spreadsheet. Shift-generator will allow to generate a shift calendar automatically, assigning developers to different weeks automatically.
+
+##How to run tests
+
+`bundle exec rake`
