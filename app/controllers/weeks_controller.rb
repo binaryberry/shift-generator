@@ -26,7 +26,7 @@ class WeeksController < ApplicationController
   def destroy
     @week = Week.find(params[:id])
     @week.destroy
-    render 'index'
+    redirect_to weeks_path
   end
 
 
