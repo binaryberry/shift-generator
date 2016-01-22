@@ -3,10 +3,9 @@
 <head>
   <% content_for :app_title, 'ShiftGenerator' %>
   <% content_for :page_title, ' | ShiftGenerator' %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <% content_for :head do %>
-    <%= stylesheet_link_tag "application", :media => "all" %>
     <%= csrf_meta_tags %>
   <% end %>
 <% content_for :navbar_items do %>
