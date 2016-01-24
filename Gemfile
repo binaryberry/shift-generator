@@ -25,6 +25,10 @@ gem 'formtastic', '~> 3.0'
 
 gem 'govuk_admin_template', '~> 3.3.1'
 
+gem 'best_in_place', '~> 3.0.1'
+
+gem 'responders', '~> 2.0' 
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

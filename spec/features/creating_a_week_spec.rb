@@ -19,4 +19,17 @@ describe 'creating a week' do
       end
     end
 
+    it "allows to edit a week's date and assignments when clicking on edit a week" do
+      visit "/weeks"
+      click_button "Create Week"
+      within "table tbody tr td:nth-of-type(7) div#edit-week a" do
+        click_button "Edit"
+      end
+      fill_in "start_date", with: "25/11/2015"
+      click_button "Update Week"
+
+      expect(page.text).to have_content("Week updated")
+      expect(page.text).to have_content("25/11/2015")
+    end
+
 end
