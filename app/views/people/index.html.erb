@@ -22,7 +22,7 @@
         <td><%= person.team %></td>
         <td><%= link_to 'Show', person %></td>
         <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Delete', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', person, method: :delete %></td>
       </tr>
     <% end %>
   </tbody>
