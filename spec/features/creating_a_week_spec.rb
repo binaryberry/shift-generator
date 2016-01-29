@@ -3,11 +3,11 @@ require 'rails_helper'
 describe 'creating a week' do
 
   before do
-    create(:primary_dev)
-    create(:supplemental_dev)
-    create(:infrastructure_dev)
-    create(:oncall_weekday_dev)
-    create(:oncall_weekend_dev)
+    create(:primary_developer)
+    create(:supplemental_developer)
+    create(:infrastructure_developer)
+    create(:oncall_weekday_developer)
+    create(:oncall_weekend_developer)
 
   end
 
