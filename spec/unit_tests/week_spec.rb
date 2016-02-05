@@ -21,6 +21,7 @@ describe Week do
   end
 
   it "can only have one assignment per role" do
+    people = [create(:primary_developer), create(:primary_developer), create(:primary_developer)]
     role = Week.roles[0]
     week = Week.create!(start_date: Date.new(2015,11,25))
     scheduler = Scheduler.new(week)
