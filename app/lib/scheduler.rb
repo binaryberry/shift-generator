@@ -35,6 +35,10 @@ class Scheduler
     @week.assignments
   end
 
+  def populate_week
+    Week.roles.each {|role| self.assign(role)}
+  end
+
 private
   def find_start_date(weeks_ago)
     @week.start_date - (weeks_ago * 7)

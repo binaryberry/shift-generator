@@ -12,8 +12,7 @@ class WeeksController < ApplicationController
   def create
     @week = Week.create!(week_params)
     scheduler = Scheduler.new(@week)
-    Week.roles.each {|role| scheduler.assign(role)}
-
+    scheduler.populate_week
     if @week.persisted?
       redirect_to weeks_path
     else
