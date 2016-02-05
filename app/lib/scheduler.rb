@@ -20,7 +20,8 @@ class Scheduler
 
   def assign(role)
     person = people_available(role).sample
-    old_assignment ||= Assignment.find_by(week: self.week)
+    return nil if person.nil?
+    old_assignment ||= Assignment.find_by(week: self.week, role: role)
     ActiveRecord::Base.transaction do
       old_assignment.destroy if old_assignment
       assignment = Assignment.new(week: self.week, person: person, role: role)
