@@ -1,6 +1,5 @@
 <h1>Schedule</h1>
 
-<%= form_for @week do |f| %>
 <!-- TODO: Fix display of errors -->
 <% if @week.errors.any? %>
   <div id="error_explanation">
@@ -28,11 +27,8 @@
     <% @weeks.each do |week| %>
       <tr>
         <td><%= week.start_date.to_s(:govuk_date_short) %></td>
-
         <% week.assignments.each do |assignment| %>
-          <% if assignment.person %>
-            <td><%= assignment.person.name%></td>
-          <% end %>
+            <td><%= assignment.person.try(:name)%></td>
         <% end %>
           <td>
           <%= link_to "Edit", edit_week_path(week) %>
@@ -40,14 +36,6 @@
         </td>
       </tr>
     <% end %>
-      <tr>
-          <td><%= f.date_field :start_date, value: Week.default_start_date %></td>
-          <%= f.fields_for :assignments,  class: "form-control input-md-3"  do |assignment_fields| %>
-            <td id="assignment"><%= assignment_fields.collection_select(:person_id, Person.with_role(assignment_fields.object.role), :id, :name, :include_blank => true)%></td>
-            <%= assignment_fields.hidden_field(:role) %>
-          <% end %>
-          <td><div ><%= f.submit class: 'btn btn-success' %><div></td>
-      </tr>
+    <%= render partial: 'form' %>
     </tbody>
   </table>
-<% end %>
