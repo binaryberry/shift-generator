@@ -24,7 +24,7 @@ class Scheduler
     ActiveRecord::Base.transaction do
       old_assignment.destroy if old_assignment
       assignment = Assignment.new(week: self.week, person: person, role: role)
-      assignment.save!
+      assignment.save
     end
   end
 
