@@ -1,6 +1,6 @@
 <td><% person.roles.each do |role| %>
 
-  <%= role.humanize %>
+  <%= role.humanize.gsub(" developer", "") %>
   <%= "| " unless person.roles[-1] == role %>
 <% end %>
 </td>

@@ -15,7 +15,7 @@ class Week < ActiveRecord::Base
 
 
   def self.roles
-    %w(primary_developer supplemental_developer infrastructure_developer oncall_weekday oncall_weekend)
+    %w(primary_developer supplemental_developer infrastructure_developer oncall_weekday_developer oncall_weekend_developer)
   end
 
   def self.default_start_date

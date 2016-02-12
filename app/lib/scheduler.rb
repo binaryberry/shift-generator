@@ -19,13 +19,12 @@ class Scheduler
   end
 
   def assign(role)
-    person = people_available(role).sample
-    old_assignment ||= Assignment.find_by(week: self.week)
-    ActiveRecord::Base.transaction do
-      old_assignment.destroy if old_assignment
-      assignment = Assignment.new(week: self.week, person: person, role: role)
-      assignment.save!
-    end
+    available_person = people_available(role).sample
+    return unless available_person
+
+    assignment = Assignment.find_or_initialize_by(week: self.week, role: role)
+    assignment.person = available_person
+    assignment.save!
   end
 
   def no_recent_assignment(list)

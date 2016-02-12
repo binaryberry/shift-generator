@@ -2,17 +2,17 @@ require "rails_helper"
 
 describe Person do
 
-  let!(:infrastructure_dev) { create(:infrastructure_dev) }
+  let!(:infrastructure_developer) { create(:infrastructure_developer) }
   let!(:primary_and_supplemental_dev) { create(:primary_and_supplemental_dev) }
-  let!(:supplemental_dev) { create(:supplemental_dev) }
+  let!(:supplemental_developer) { create(:supplemental_developer) }
 
   it "allows to see the list of available developers for each role" do
-    expect(Person.with_role("supplemental_developer")).to contain_exactly(primary_and_supplemental_dev, supplemental_dev)
+    expect(Person.with_role("supplemental_developer")).to contain_exactly(primary_and_supplemental_dev, supplemental_developer)
   end
 
   it "prevents duplicates" do
-    Person.create(name: infrastructure_dev.name, roles: ['infrastructuredev'])
-    expect(Person.where(name: infrastructure_dev.name).count).to eq 1
+    Person.create(name: infrastructure_developer.name, roles: ['infrastructuredev'])
+    expect(Person.where(name: infrastructure_developer.name).count).to eq 1
   end
 
   it "can be both primary and supplemental dev" do

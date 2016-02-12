@@ -1,0 +1,14 @@
+<%= form_for @week do |f| %>
+
+  <tr>
+      <td><%= f.date_field :start_date, value: Week.default_start_date %></td>
+      <%= f.fields_for :assignments,  class: "form-control input-md-3"  do |assignment_fields| %>
+        <td id="assignment">
+          <%= assignment_fields.collection_select(:person_id, Person.with_role(assignment_fields.object.role), :id, :name, :include_blank => true)%>
+        </td>
+        <%= assignment_fields.hidden_field(:role) %>
+      <% end %>
+      <td><div ><%= f.submit class: 'btn btn-success' %><div></td>
+  </tr>
+
+<% end %>
