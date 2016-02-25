@@ -32,15 +32,14 @@
               <td><%= assignment_to_display.try(:person).try(:name) %></td>
             <% end %>
         <td>
-          <%= link_to "Edit" %>
+          <%= link_to "Edit", edit_week_path(week) %>
           <%= link_to "Remove", week, method: :delete %>
         </td>
         <% else %>
-          <%= render partial: 'form', locals: { f:f, week: @week } %>
+          <%= render partial: 'form', locals: { f:f, week: week } %>
         <% end %>
       </tr>
     <% end %>
-    <!-- <%= render partial: 'form', locals: { f:f, week: @week } %> -->
     </tbody>
   </table>
 <% end %>
