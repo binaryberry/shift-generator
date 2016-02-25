@@ -3,6 +3,7 @@ class WeeksController < ApplicationController
 
   def index
     @week = Week.new(start_date: Week.default_start_date)
+    @weeks << @week
 
     Week.roles.each do |role|
       @week.assignments.build(role: role)
@@ -10,7 +11,7 @@ class WeeksController < ApplicationController
   end
 
   def create
-    @week = Week.create!(week_params)
+    @week = Week.new(week_params)
     @week.start_date = Week.default_start_date
     @week.save
     scheduler = Scheduler.new(@week)
