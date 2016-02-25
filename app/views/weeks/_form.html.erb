@@ -1,4 +1,4 @@
-<td><%= week.start_date.to_s(:govuk_date_short) %></td>
+<td><%= date_select :week, :start_date %></td>
 <%= f.fields_for :assignments,  class: "form-control input-md-3"  do |assignment_fields| %>
   <td id="assignment">
     <%= assignment_fields.collection_select(:person_id, Person.with_role(assignment_fields.object.role), :id, :name, include_blank: true)%>

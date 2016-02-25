@@ -28,17 +28,19 @@
         <% if week != @week %>
           <td><%= week.start_date.to_s(:govuk_date_short) %></td>
             <% Week.roles.each do |role| %>
-              <% assignment_to_display = week.assignments.select{|assignment| assignment.role == role}[0] || Assignment.new %>
-              <td><%= assignment_to_display.person.try(:name) %></td>
+              <% assignment_to_display = week.assignments.select{|assignment| assignment.role == role}[0] %>
+              <td><%= assignment_to_display.try(:person).try(:name) %></td>
             <% end %>
         <td>
           <%= link_to "Edit" %>
           <%= link_to "Remove", week, method: :delete %>
         </td>
+        <% else %>
+          <%= render partial: 'form', locals: { f:f, week: @week } %>
         <% end %>
       </tr>
     <% end %>
-    <%= render partial: 'form', locals: { f:f, week: @week } %>
+    <!-- <%= render partial: 'form', locals: { f:f, week: @week } %> -->
     </tbody>
   </table>
 <% end %>
