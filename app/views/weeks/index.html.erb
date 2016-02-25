@@ -1,6 +1,6 @@
 <h1>Schedule</h1>
 
-<!-- TODO: Fix display of errors -->
+<%= form_for @week do |f| %>
 <% if @week.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@week.errors.count, "error") %> prohibited this week from being saved:</h2>
@@ -12,7 +12,6 @@
     </ul>
   </div>
 <% end %>
-
   <table class="table table-bordered">
     <thead>
       <tr class="table-header">
@@ -26,16 +25,20 @@
     <tbody>
     <% @weeks.each do |week| %>
       <tr>
-        <td><%= week.start_date.to_s(:govuk_date_short) %></td>
-        <% week.assignments.each do |assignment| %>
-            <td><%= assignment.person.try(:name)%></td>
-        <% end %>
-          <td>
-          <%= link_to "Edit", edit_week_path(week) %>
+        <% if week != @week %>
+          <td><%= week.start_date.to_s(:govuk_date_short) %></td>
+            <% Week.roles.each do |role| %>
+              <% assignment_to_display = week.assignments.select{|assignment| assignment.role == role}[0] %>
+              <td><%= assignment_to_display.person.try(:name) %></td>
+            <% end %>
+        <td>
+          <%= link_to "Edit" %>
           <%= link_to "Remove", week, method: :delete %>
         </td>
+        <% end %>
       </tr>
     <% end %>
-    <%= render partial: 'form' %>
+    <%= render partial: 'form', locals: { f:f, week: @week } %>
     </tbody>
   </table>
+<% end %>
