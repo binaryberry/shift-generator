@@ -23,23 +23,21 @@
       </tr>
     </thead>
     <tbody>
-      <% @weeks.each do |week| %>
-        <tr>
+    <% @weeks.each do |week| %>
+      <tr>
+        <% if week != @week %>
           <td><%= week.start_date.to_s(:govuk_date_short) %></td>
-          <% if week == @week %>
-            <%= render partial: 'form', locals: {f: f} %>
-          <% else %>
-            <% week.assignments.each do |assignment| %>
+          <% week.assignments.each do |assignment| %>
                 <td><%= assignment.person.try(:name)%></td>
-            <% end %>
-            <%= render partial: 'form', locals: { f:f } %>
-            <td>
-              <%= link_to "Edit", edit_week_path(week) %>
-              <%= link_to "Remove", week, method: :delete %>
-            </td>
           <% end %>
-        </tr>
+            <td>
+            <%= link_to "Edit" %>
+            <%= link_to "Remove", week, method: :delete %>
+          </td>
+        <% end %>
+      </tr>
     <% end %>
+    <%= render partial: 'form', locals: { f:f, week: @week } %>
     </tbody>
   </table>
 <% end %>
