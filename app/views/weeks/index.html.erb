@@ -27,13 +27,14 @@
       <tr>
         <% if week != @week %>
           <td><%= week.start_date.to_s(:govuk_date_short) %></td>
-          <% week.assignments.each do |assignment| %>
-                <td><%= assignment.person.try(:name)%></td>
-          <% end %>
-            <td>
-            <%= link_to "Edit" %>
-            <%= link_to "Remove", week, method: :delete %>
-          </td>
+            <% Week.roles.each do |role| %>
+              <% assignment_to_display = week.assignments.select{|assignment| assignment.role == role}[0] %>
+              <td><%= assignment_to_display.person.try(:name) %></td>
+            <% end %>
+        <td>
+          <%= link_to "Edit" %>
+          <%= link_to "Remove", week, method: :delete %>
+        </td>
         <% end %>
       </tr>
     <% end %>
