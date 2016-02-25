@@ -25,6 +25,16 @@ class WeeksController < ApplicationController
 
   def edit
     @week = Week.find(params[:id])
+    render 'index'
+  end
+
+  def update
+    @week = Week.find(params[:id])
+    if @week.update_attributes(week_params)
+      redirect_to weeks_path
+    else
+      render 'index'
+    end
   end
 
   def destroy
@@ -37,6 +47,6 @@ class WeeksController < ApplicationController
 private
 
   def week_params
-    params.require(:week).permit(:start_date, :assignments_attributes => [:person_id, :role] )
+    params.require(:week).permit(:start_date, :assignments_attributes => [:person_id, :role, :id] )
   end
 end
