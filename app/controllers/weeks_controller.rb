@@ -11,6 +11,8 @@ class WeeksController < ApplicationController
 
   def create
     @week = Week.create!(week_params)
+    @week.start_date = Week.default_start_date
+    @week.save
     scheduler = Scheduler.new(@week)
     Week.roles.each {|role| scheduler.assign(role)}
 
