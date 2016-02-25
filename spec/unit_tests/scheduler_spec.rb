@@ -119,11 +119,4 @@ end
       expect(scheduler.people_available("primary_developer").count).to eq 0
     end
   end
-
-  context "populate_week" do
-    it "goes through the roles and generates a week" do
-      scheduler.populate_week
-      expect(scheduler.assignments.count).to eq 5
-    end
-  end
 end
