@@ -27,8 +27,13 @@ class Week < ActiveRecord::Base
     default_date
   end
 
-private
+  def assignment_exists_for_that_role?(role)
+    assignment = self.assignments.select{ |assignment| assignment.role == role }[0]
+    return false if assignment.nil?
+    true
+  end
 
+private
   def self.generate_initial_date
     return Date.today if Week.count == 0
     latest_week = Week.order("start_date desc").limit(1)[0]

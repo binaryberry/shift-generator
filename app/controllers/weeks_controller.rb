@@ -31,13 +31,16 @@ class WeeksController < ApplicationController
 
   def update
     @week = Week.find(params[:id])
-    week_params["assignments_attributes"].each do |attribute|
-      role_to_update = attribute[1]["role"]
-      assignment_to_update = attribute[1]["id"]
-      person_id_to_update = attribute[1]["person_id"]
-      assignmt =  @week.assignments.find(assignment_to_update)
-      assignmt.update_attribute(:person_id, person_id_to_update)
-      assignmt.save!
+    week_params["assignment"].values.each do |attribute|
+      assignment_to_update = attribute["id"]
+      person_id_to_update = attribute["person_id"]
+      if assignment_to_update.present?
+        assignmt = @week.assignments.find(assignment_to_update)
+        assignmt.update_attribute(:person_id, person_id_to_update)
+        assignmt.save!
+      else
+        @week.assignments.create!(role: attribute["role"], person_id: person_id_to_update)
+      end
     end
     if @week.persisted?
       redirect_to weeks_path
@@ -56,6 +59,6 @@ class WeeksController < ApplicationController
 private
 
   def week_params
-    params.require(:week).permit(:start_date, :assignments_attributes => [:person_id, :role, :id] )
+    params.require(:week).permit(:start_date, :assignment => [:person_id, :role, :id] )
   end
 end
