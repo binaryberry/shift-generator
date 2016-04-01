@@ -11,7 +11,7 @@ class WeeksController < ApplicationController
   end
 
   def create
-    @week = Week.new(week_params)
+    @week = Week.new
     @week.start_date = Week.default_start_date
     @week.save
     scheduler = Scheduler.new(@week)
@@ -59,6 +59,6 @@ class WeeksController < ApplicationController
 private
 
   def week_params
-    params.require(:week).permit(:start_date, :assignment => [:person_id, :role, :id] )
+    params.require(:week).permit(:start_date, :assignment => [:person_id, :role, :id])
   end
 end
