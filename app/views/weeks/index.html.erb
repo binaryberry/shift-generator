@@ -29,7 +29,9 @@
           <td><%= week.start_date.to_s(:govuk_date_short) %></td>
             <% Week.roles.each do |role| %>
               <% assignment_to_display = week.assignments.select{|assignment| assignment.role == role}[0] %>
-              <td><%= assignment_to_display.try(:person).try(:name) %></td>
+              <td class="<%= "assignment-missing" unless assignment_to_display.try(:person).try(:name) %>" >
+                <%= assignment_to_display.try(:person).try(:name) %>
+              </td>
             <% end %>
         <td>
           <%= link_to "Edit", edit_week_path(week) %>
