@@ -16,12 +16,12 @@ FactoryGirl.define do
 
   factory :oncall_weekday_developer, class: Person  do
     sequence(:name) {|n| FFaker::Name.first_name + " (#{n})"}
-    roles ["oncall_weekday"]
+    roles ["oncall_weekday_developer"]
   end
 
   factory :oncall_weekend_developer, class: Person  do
     sequence(:name) {|n| FFaker::Name.first_name + " (#{n})"}
-    roles ["oncall_weekend"]
+    roles ["oncall_weekend_developer"]
   end
 
   factory :primary_and_supplemental_dev, class: Person  do
