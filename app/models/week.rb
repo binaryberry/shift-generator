@@ -13,7 +13,6 @@ class Week < ActiveRecord::Base
     end
   end
 
-
   def self.roles
     %w(primary_developer supplemental_developer infrastructure_developer oncall_weekday_developer oncall_weekend_developer)
   end
