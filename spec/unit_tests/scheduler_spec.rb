@@ -98,21 +98,17 @@ end
     end
   end
 
-  context "incompatible_shifts rule" do
-    it "ensures people are not on 2nd line and on call in the same week" do
-
-    end
-  end
-
   context "people_available" do
     it "returns a list of people available for a role" do
-      new_scheduler = Scheduler.new(create(:week, start_date: Date.new(2016,02,03)))
-      expect(new_scheduler.people_available("primary_developer").count).to eq 5
+      week_with_five_primary_available = create(:week, start_date: Date.new(2016,02,03))
+      other_scheduler = Scheduler.new(week_with_five_primary_available)
+      expect(other_scheduler.people_available("primary_developer").count).to eq 5
     end
 
     it "returns a list of people available for a role when one is available" do
-      new_scheduler = Scheduler.new(create(:week, start_date: Date.new(2015,12,02)))
-      expect(new_scheduler.people_available("primary_developer").count).to eq 1
+      week_with_one_primary_available = create(:week, start_date: Date.new(2015,12,02))
+      other_scheduler = Scheduler.new(week_with_one_primary_available)
+      expect(other_scheduler.people_available("primary_developer").count).to eq 1
     end
 
     it "returns nil if no one is available" do
