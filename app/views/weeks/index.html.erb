@@ -12,7 +12,7 @@
     </ul>
   </div>
 <% end %>
-  <table class="table table-bordered">
+  <table class="table">
     <thead>
       <tr class="table-header">
         <th>Start Date</th>
@@ -29,16 +29,26 @@
           <td><%= week.start_date.to_s(:govuk_date_short) %></td>
             <% Week.roles.each do |role| %>
               <% assignment_to_display = week.assignments.select{|assignment| assignment.role == role}[0] %>
-              <td><%= assignment_to_display.person.try(:name) %></td>
+              <td class="<%= "assignment-missing" unless assignment_to_display.try(:person).try(:name) %>" >
+              <!-- <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="<%= assignment_to_display.try(:person).try(:team) %>">
+              </button> -->
+              <span
+              class="<%= assignment_to_display.try(:person).try(:team).try(:parameterize)%>" title="<%= assignment_to_display.try(:person).try(:team) %>"
+              data-toggle="tooltip" data-placement="top">
+            </span>
+                <p class="placeholder-text"> Please manually <br> select an assignment </p>
+                <%= assignment_to_display.try(:person).try(:name) %>
+              </td>
             <% end %>
         <td>
-          <%= link_to "Edit" %>
+          <%= link_to "Edit", edit_week_path(week) %>
           <%= link_to "Remove", week, method: :delete %>
         </td>
+        <% else %>
+          <%= render partial: 'form', locals: { f:f, week: week } %>
         <% end %>
       </tr>
     <% end %>
-    <%= render partial: 'form', locals: { f:f, week: @week } %>
     </tbody>
   </table>
 <% end %>

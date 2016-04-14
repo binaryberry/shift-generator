@@ -14,3 +14,59 @@
  *= require_self
  */
  @import 'govuk_admin_template';
+
+ .assignment-missing {
+   background-color: #ffe6e6;
+ }
+
+ .placeholder-text {
+   display: none;
+ }
+
+ button {
+   display: none;
+ }
+
+ .assignment-missing:hover .placeholder-text {
+   display: block;
+   font-size: 0.8em;
+ }
+
+ .table > tbody > tr > td > span {
+  display:inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+ }
+
+ .table > tbody > tr > td > span.custom {
+  background-color: #E32017;
+ }
+
+ .table > tbody > tr > td > span.core-formats {
+   background-color: #FFD300;
+ }
+
+ .table > tbody > tr > td > span.publishing-platform {
+   background-color: #00782A;
+ }
+
+ .table > tbody > tr > td > span.other {
+   background-color: #84B817;
+ }
+
+ .table > tbody > tr > td > span.infrastructure {
+   background-color: #7156A5;
+ }
+
+ .table > tbody > tr > td > span.finding-things {
+   background-color: #00A4A7;
+ }
+
+ .table > tbody > tr > td > span.performance-platform {
+   background-color: #0098D4;
+ }
+
+ tr:hover {
+   background-color: #f5f5f5
+ }

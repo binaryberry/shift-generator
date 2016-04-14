@@ -11,7 +11,7 @@ class WeeksController < ApplicationController
   end
 
   def create
-    @week = Week.new(week_params)
+    @week = Week.new
     @week.start_date = Week.default_start_date
     @week.save
     scheduler = Scheduler.new(@week)
@@ -31,7 +31,18 @@ class WeeksController < ApplicationController
 
   def update
     @week = Week.find(params[:id])
-    if @week.update_attributes(week_params)
+    week_params["assignment"].values.each do |attribute|
+      assignment_to_update = attribute["id"]
+      person_id_to_update = attribute["person_id"]
+      if assignment_to_update.present?
+        assignmt = @week.assignments.find(assignment_to_update)
+        assignmt.update_attribute(:person_id, person_id_to_update)
+        assignmt.save!
+      else
+        @week.assignments.create!(role: attribute["role"], person_id: person_id_to_update)
+      end
+    end
+    if @week.persisted?
       redirect_to weeks_path
     else
       render 'index'
@@ -48,6 +59,6 @@ class WeeksController < ApplicationController
 private
 
   def week_params
-    params.require(:week).permit(:start_date, :assignments_attributes => [:person_id, :role, :id] )
+    params.require(:week).permit(:start_date, :assignment => [:person_id, :role, :id])
   end
 end
