@@ -98,6 +98,16 @@ end
     end
   end
 
+  context "different_teams rule" do
+    it "ensures there is only one person per team per week" do
+      person_1 = create(:primary_developer, team: "specialist-publisher")
+      person_2 = create(:primary_developer, team: "specialist-publisher")
+      person_in_different_team = create(:primary_developer, team: "core-formats")
+      expect(scheduler.different_teams([person_1, person_2, person_in_different_team]).count).to eq 2
+      expect(scheduler.different_teams([person_1, person_2, person_in_different_team])).to include(person_in_different_team)
+    end
+  end
+
   context "people_available" do
     it "returns a list of people available for a role" do
       week_with_five_primary_available = create(:week, start_date: Date.new(2016,02,03))
