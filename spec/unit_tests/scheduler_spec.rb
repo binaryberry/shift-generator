@@ -24,6 +24,13 @@ def assignment(week, role)
   @week_assignments[week].find{|assignment| assignment.role == "#{role}"}
 end
 
+def create_available_developers
+  create("primary_and_supplemental_dev", team: "team_1")
+  create("primary_developer", team: "team_2")
+  create("supplemental_developer", team: "team_3")
+  create("infrastructure_developer", team: "team_4")
+end
+
   it "knows about the assignments of the previous week" do
     previous_week_assignments = []
     Week.roles.each do |role|
@@ -42,10 +49,7 @@ end
   end
 
   it "knows the available people for each type of role" do
-    create("primary_and_supplemental_dev")
-    create("primary_developer")
-    create("supplemental_developer")
-    create("infrastructure_developer")
+    create_available_developers
     aggregate_failures("available people") do
       expect(scheduler.people_available("primary_developer").count).to eq 2
       expect(scheduler.people_available("supplemental_developer").count).to eq 2
@@ -91,7 +95,12 @@ end
 
   context "no_recent_assignment rule" do
     it "ensures there are 4 weeks between 2 shifts" do
-      people_with_recent_shifts = [assignment(week_4, "primary_developer").person, assignment(week_3, "primary_developer").person, assignment(week_2, "primary_developer").person, assignment(week_1, "primary_developer").person]
+      people_with_recent_shifts = [
+        assignment(week_4, "primary_developer").person,
+        assignment(week_3, "primary_developer").person,
+        assignment(week_2, "primary_developer").person,
+        assignment(week_1, "primary_developer").person
+      ]
       new_person = create(:primary_developer)
       list = people_with_recent_shifts.push(new_person)
       expect(scheduler.no_recent_assignment(list)).to eq [new_person]
@@ -110,9 +119,10 @@ end
 
   context "people_available" do
     it "returns a list of people available for a role" do
-      week_with_five_primary_available = create(:week, start_date: Date.new(2016,02,03))
-      other_scheduler = Scheduler.new(week_with_five_primary_available)
-      expect(other_scheduler.people_available("primary_developer").count).to eq 5
+      create_available_developers
+      week_with_three_primary_available = create(:week, start_date: Date.new(2016,02,03))
+      other_scheduler = Scheduler.new(week_with_three_primary_available)
+      expect(other_scheduler.people_available("primary_developer").count).to eq 3
     end
 
     it "returns a list of people available for a role when one is available" do
