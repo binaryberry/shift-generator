@@ -30,8 +30,6 @@
             <% Week.roles.each do |role| %>
               <% assignment_to_display = week.assignments.select{|assignment| assignment.role == role}[0] %>
               <td class="<%= "assignment-missing" unless assignment_to_display.try(:person).try(:name) %>" >
-              <!-- <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="<%= assignment_to_display.try(:person).try(:team) %>">
-              </button> -->
               <span
               class="<%= assignment_to_display.try(:person).try(:team).try(:parameterize)%>" title="<%= assignment_to_display.try(:person).try(:team) %>"
               data-toggle="tooltip" data-placement="top">
