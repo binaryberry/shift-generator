@@ -17,12 +17,14 @@
   <tbody>
     <% @people.each do |person| %>
       <tr>
-        <td><%= person.name %></td>
-        <%= render 'roles', person: person %>
-        <td><%= person.team %></td>
-        <td><%= link_to 'Show', person %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Delete', person, method: :delete %></td>
+        <% if person.active? %>
+          <td><%= person.name %></td>
+          <%= render 'roles', person: person %>
+          <td><%= person.team %></td>
+          <td><%= link_to 'Show', person %></td>
+          <td class="edit"><%= link_to 'Edit', edit_person_path(person) %></td>
+          <td class="delete"><%= link_to 'Delete', person, method: :delete %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Person', new_person_path %> |
+<%= link_to 'New Person', new_person_path %>

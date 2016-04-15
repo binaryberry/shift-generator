@@ -27,4 +27,9 @@ describe Person do
     expect{Person.create!(roles: ['primary_developer', 'infrastructure_developer'])}.to raise_error(ActiveRecord::RecordInvalid)
   end
 
+  it "is active when created" do
+    person = Person.create(name: "Charles Darwin", roles: ["primary_developer"])
+    expect(person).to be_active
+  end
+
 end
