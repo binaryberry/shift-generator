@@ -19,17 +19,8 @@
    background-color: #ffe6e6;
  }
 
- .placeholder-text {
-   display: none;
- }
-
  button {
    display: none;
- }
-
- .assignment-missing:hover .placeholder-text {
-   display: block;
-   font-size: 0.8em;
  }
 
  .table > tbody > tr > td > span {

@@ -34,7 +34,6 @@
               class="<%= assignment_to_display.try(:person).try(:team).try(:parameterize)%>" title="<%= assignment_to_display.try(:person).try(:team) %>"
               data-toggle="tooltip" data-placement="top">
             </span>
-                <p class="placeholder-text"> Please manually <br> select an assignment </p>
                 <%= assignment_to_display.try(:person).try(:name) %>
               </td>
             <% end %>
