@@ -31,6 +31,12 @@ def create_available_developers
   create("infrastructure_developer", team: "team_4")
 end
 
+def remove_infrastructure_developers
+  infrastructure_developers = Person.all.select {|a| a.roles == ["infrastructure_developer"]}
+  infrastructure_developers.map{|a| a.destroy}
+  expect(Person.all.select {|a| a.roles == ["infrastructure_developer"]}.count).to eq 0
+end
+
   it "knows about the assignments of the previous week" do
     previous_week_assignments = []
     Week.roles.each do |role|
@@ -76,10 +82,7 @@ end
 
   context "when there are five roles to assign and 4 people available" do
     it "can assign all the roles for which there is an available person" do
-      infrastructure_developers = Person.all.select {|a| a.roles == ["infrastructure_developer"]}
-      infrastructure_developers.map{|a| a.destroy}
-      expect(Person.all.select {|a| a.roles == ["infrastructure_developer"]}.count).to eq 0
-
+      remove_infrastructure_developers
       Week.roles.each{|role| scheduler.assign(role)}
 
       expect(scheduler.assignments.all.select {|a| a.person_id != nil}.count).to eq 4
