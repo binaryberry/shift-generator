@@ -1,4 +1,5 @@
 class Person < ActiveRecord::Base
+  after_create :default_values
 	has_many :assignments, dependent: :destroy
 	has_many :weeks, through: :assignments, dependent: :destroy
   validates_each :roles, presence: true do |record, attr, value|
@@ -25,6 +26,12 @@ class Person < ActiveRecord::Base
 
   def self.teams
     ["Core Formats", "Custom", "Finding Things", "Infrastructure", "Performance Platform", "Publishing Platform", "Other"]
+  end
+
+private
+
+  def default_values
+    self.active ||= true
   end
 
 end
