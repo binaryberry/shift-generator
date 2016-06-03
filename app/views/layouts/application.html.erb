@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <% content_for :app_title, 'ShiftGenerator' %>
-  <% content_for :page_title, ' | ShiftGenerator' %>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <% content_for :head do %>
-    <%= csrf_meta_tags %>
-  <% end %>
+
+<% content_for :app_title, 'ShiftGenerator' %>
+<% content_for :page_title, ' | ShiftGenerator' %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+<% end %>
 <% content_for :navbar_items do %>
   <%= nav_link 'Schedule', root_path %>
   <%= nav_link 'People', people_path %>
 <% end %>
-</head>
-<body>
-<% content_for :content do %>
-<%= yield %>
-<% end %>
 
-</body>
-</html>
+<% content_for :content do %>
+  <%= yield %>
+<% end %>
 <%= render :template => 'layouts/govuk_admin_template' %>

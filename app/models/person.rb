@@ -16,14 +16,6 @@ class Person < ActiveRecord::Base
     end
   end
 
-  def active?
-    @active ||= true
-  end
-
-  def active
-    @active
-  end
-
   def recent_assignment(week)
     assignments = self.assignments
     recent_in_days = 28

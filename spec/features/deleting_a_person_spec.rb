@@ -13,8 +13,12 @@ describe 'deleting a person' do
       within "td.delete" do
         click_link("Delete")
       end
-      visit "/"
+      visit "/people"
       expect(page).not_to have_content("Neil deGrasse Tyson")
+      visit "/"
+      screenshot_and_save_page
+      expect(page).to have_css(".assignment-missing")
+      #check that CSS for cell is red
     end
 
 end

@@ -43,6 +43,7 @@ class PeopleController < ApplicationController
 
   def destroy
     @person.active = false
+    @person.save!
     respond_to do |format|
       format.html { redirect_to people_url, notice: 'Person was successfully removed.' }
       format.json { head :no_content }
