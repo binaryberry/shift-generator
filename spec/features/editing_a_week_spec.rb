@@ -30,4 +30,16 @@ describe 'editing a week' do
       end
     end
 
+    it "deletes a week when clicking on remove" do
+      within ".edit-table" do
+        click_link "Edit"
+      end
+
+      within ".submit-button" do
+        click_link "Remove"
+      end
+
+      expect(page.has_css?(".edit-table")).to eq false
+    end
+
 end
