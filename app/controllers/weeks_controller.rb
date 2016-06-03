@@ -1,7 +1,8 @@
 class WeeksController < ApplicationController
-  before_action {@weeks = Week.all.order(:start_date)}
+  # before_action {@weeks = Week.all.order(:start_date)}
 
   def index
+    @weeks = Week.where('start_date > ?', Date.today - 6 )
     @week = Week.new(start_date: Week.default_start_date)
     @weeks << @week
 
@@ -24,6 +25,7 @@ class WeeksController < ApplicationController
   end
 
   def edit
+    @weeks = Week.where('start_date > ?', Date.today + 1 )
     @week = Week.find(params[:id])
     render 'index'
   end
