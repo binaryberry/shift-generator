@@ -24,7 +24,7 @@ describe 'editing a week' do
       within ".submit-button" do
         click_button "Update Week"
       end
-# assignment_<%= assignment_to_display.id
+
       within ".primary_developer-1" do
         expect(page.text).to eq "Tony Stark"
       end

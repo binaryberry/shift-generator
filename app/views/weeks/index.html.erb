@@ -29,15 +29,15 @@
           <td><%= week.start_date.to_s(:govuk_date_short) %></td>
             <% Week.roles.each do |role| %>
               <% assignment_to_display = week.assignments.select{|assignment| assignment.role == role}[0] %>
-              <td class="<%= "assignment-missing" unless assignment_to_display.try(:person).try(:name) %>" >
-              <span
-              class="<%= assignment_to_display.try(:person).try(:team).try(:parameterize)%>" title="<%= assignment_to_display.try(:person).try(:team) %>"
-              data-toggle="tooltip" data-placement="top">
-            </span>
+              <td class="<%= "assignment-missing" unless assignment_to_display.try(:person).try(:name) && assignment_to_display.try(:person).try(:active) %>" >
+                <span
+                class="<%= span_class(assignment_to_display)%>" title="<%= assignment_to_display.try(:person).try(:team) %>"
+                data-toggle="tooltip" data-placement="top">
+                </span>
                 <%= assignment_to_display.try(:person).try(:name) %>
               </td>
-            <% end %>
-        <td>
+        <% end %>
+          <td>
           <%= link_to "Edit", edit_week_path(week) %>
           <%= link_to "Remove", week, method: :delete %>
         </td>
