@@ -25,7 +25,7 @@ describe 'editing a week' do
         click_button "Update Week"
       end
 
-      within ".primary_developer-1" do
+      within "tr:nth-child(1) > td:nth-child(2)" do
         expect(page.text).to eq "Tony Stark"
       end
     end

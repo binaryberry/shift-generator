@@ -37,7 +37,7 @@
                 <%= assignment_to_display.try(:person).try(:name) %>
               </td>
         <% end %>
-          <td>
+          <td class="edit-table">
           <%= link_to "Edit", edit_week_path(week) %>
           <%= link_to "Remove", week, method: :delete %>
         </td>
