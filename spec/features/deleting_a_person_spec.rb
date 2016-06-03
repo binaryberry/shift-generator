@@ -18,7 +18,6 @@ describe 'deleting a person' do
       visit "/"
       screenshot_and_save_page
       expect(page).to have_css(".assignment-missing")
-      #check that CSS for cell is red
     end
 
 end

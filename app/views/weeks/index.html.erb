@@ -19,7 +19,7 @@
         <% Week.roles.each do |role| %>
           <th><%= role.humanize %></th>
         <% end %>
-        <th>Edit table</th>
+        <th>Modify</th>
       </tr>
     </thead>
     <tbody>
@@ -38,8 +38,7 @@
               </td>
         <% end %>
           <td class="edit-table">
-          <%= link_to "Edit", edit_week_path(week) %>
-          <%= link_to "Remove", week, method: :delete %>
+          <%= link_to "Edit", edit_week_path(week), class: 'btn btn-info' %>
         </td>
         <% else %>
           <%= render partial: 'form', locals: { f:f, week: week } %>

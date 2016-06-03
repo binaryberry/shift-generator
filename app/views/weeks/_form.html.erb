@@ -9,4 +9,10 @@
     <%= assignment_fields.hidden_field(:id) %>
   <% end %>
 <% end %>
-<td><div class="submit-button"><%= f.submit class: 'btn btn-success' %><div></td>
+<td>
+  <div class="submit-button"><%= f.submit class: 'btn btn-success' %>
+    <% unless week.new_record? %>
+      <%= link_to "Remove", week, method: :delete, class: 'btn btn-danger' %>
+    <% end %>
+  <div>
+</td>
