@@ -28,7 +28,13 @@ describe 'viewing weeks' do
   end
 
   context "when looking at the history" do
-
+    it "shows past weeks" do
+      visit "/history"
+      within 'table > tbody' do
+        expect(page).to have_xpath(".//tr", :count => 1)
+      end
+      expect(page).to have_content("18 Nov 2015")
+    end
   end
 
     def create_developer_set

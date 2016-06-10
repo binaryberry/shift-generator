@@ -11,6 +11,16 @@ class WeeksController < ApplicationController
     end
   end
 
+  def history
+    @weeks = Week.where('start_date < ?', Date.today - 6 )
+    @week = Week.new(start_date: Week.default_start_date)
+
+    Week.roles.each do |role|
+      @week.assignments.build(role: role)
+    end
+    render 'index'
+  end
+
   def create
     @week = Week.new
     @week.start_date = Week.default_start_date
