@@ -32,4 +32,24 @@ describe Person do
     expect(person).to be_active
   end
 
+  it "doesn't have any more future assignments when deleted" do
+    Timecop.freeze(Time.local(2015, 11, 18))
+    week = Week.create(start_date: Date.new(2015,11,25))
+    assignment = Assignment.create(week: week, person: supplemental_developer)
+    supplemental_developer.remove_future_assignments
+    supplemental_developer.save!
+    assignment.reload
+    expect(assignment.person).to eq nil
+  end
+
+  it "keeps past assignments when deleted" do
+    Timecop.freeze(Time.local(2015, 12, 02))
+    week = Week.create(start_date: Date.new(2015,11,25))
+    assignment = Assignment.create(week: week, person: supplemental_developer)
+    supplemental_developer.remove_future_assignments
+    supplemental_developer.save!
+    assignment.reload
+    expect(assignment.person).to eq supplemental_developer
+  end
+
 end

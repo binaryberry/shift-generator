@@ -48,3 +48,5 @@ Person.create(name: "bob Walker7", roles: ["oncall_weekday_developer", "oncall_w
 Person.create(name: "bob Walker8", roles: ["oncall_weekday_developer", "oncall_weekend_developer"], team: "Infrastructure", active: true)
 Person.create(name: "bob Walker9", roles: ["oncall_weekday_developer", "oncall_weekend_developer"], team: "Infrastructure", active: true)
 Person.create(name: "bob Walker10", roles: ["oncall_weekday_developer", "oncall_weekend_developer"], team: "Infrastructure", active: true)
+Assignment.create(week: Week.create(start_date: Date.new(2016,05,18)), person: Person.create(name: "bob Walker10", roles: ["oncall_weekday_developer", "oncall_weekend_developer"], team: "Infrastructure", active: true))
+Assignment.create(week: Week.create(start_date: Date.new(2016,05,25)), person: Person.create(name: "bob Walker11", roles: ["oncall_weekday_developer", "oncall_weekend_developer"], team: "Infrastructure", active: true))

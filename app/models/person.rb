@@ -28,6 +28,16 @@ class Person < ActiveRecord::Base
     ["Core Formats", "Custom", "Finding Things", "Infrastructure", "Performance Platform", "Publishing Platform", "Other"]
   end
 
+  def remove_future_assignments
+    assignments = self.assignments
+    assignments.each do |assignment|
+      if assignment.week.start_date > Date.today
+        assignment.person=nil
+        assignment.save!
+      end
+    end
+  end
+
 private
 
   def default_values
