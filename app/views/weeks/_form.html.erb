@@ -1,4 +1,4 @@
-<td><%= date_select :week, :start_date %></td>
+<td><%= week.start_date.to_s(:govuk_date_short) %></td>
 <% Week.roles.each_with_index do |role, i| %>
   <% role_assignment = f.object.assignments.find_or_initialize_by(role: role) %>
   <%= f.fields_for role_assignment, index: i, class: "form-control input-md-3"  do |assignment_fields| %>
