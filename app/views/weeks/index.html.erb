@@ -19,7 +19,9 @@
         <% Week.roles.each do |role| %>
           <th><%= role.humanize %></th>
         <% end %>
+        <% unless @history %>
         <th>Modify</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -37,9 +39,11 @@
                 <%= assignment_to_display.try(:person).try(:name) %>
               </td>
         <% end %>
-          <td class="edit-table">
-          <%= link_to "Edit", edit_week_path(week), class: 'btn btn-info' %>
-        </td>
+          <% unless @history %>
+            <td class="edit-table">
+              <%= link_to "Edit", edit_week_path(week), class: 'btn btn-info' %>
+            </td>
+          <% end %>
         <% else %>
           <%= render partial: 'form', locals: { f:f, week: week } %>
         <% end %>
