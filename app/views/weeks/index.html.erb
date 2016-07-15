@@ -1,17 +1,17 @@
 <h1>Schedule</h1>
 
 <%= form_for @week do |f| %>
-<% if @week.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@week.errors.count, "error") %> prohibited this week from being saved:</h2>
+  <% if @week.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@week.errors.count, "error") %> prohibited this week from being saved:</h2>
 
-    <ul>
-    <% @week.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
+      <ul>
+      <% @week.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   <table class="table">
     <thead>
       <tr class="table-header">
@@ -19,7 +19,9 @@
         <% Week.roles.each do |role| %>
           <th><%= role.humanize %></th>
         <% end %>
-        <th>Edit table</th>
+        <% unless @history %>
+        <th>Modify</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -29,21 +31,19 @@
           <td><%= week.start_date.to_s(:govuk_date_short) %></td>
             <% Week.roles.each do |role| %>
               <% assignment_to_display = week.assignments.select{|assignment| assignment.role == role}[0] %>
-              <td class="<%= "assignment-missing" unless assignment_to_display.try(:person).try(:name) %>" >
-              <!-- <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="<%= assignment_to_display.try(:person).try(:team) %>">
-              </button> -->
-              <span
-              class="<%= assignment_to_display.try(:person).try(:team).try(:parameterize)%>" title="<%= assignment_to_display.try(:person).try(:team) %>"
-              data-toggle="tooltip" data-placement="top">
-            </span>
-                <p class="placeholder-text"> Please manually <br> select an assignment </p>
+              <td class="<%= "assignment-missing" unless assignment_to_display.try(:person).try(:name) && assignment_to_display.try(:person).try(:active) %>" >
+                <span
+                class="<%= span_class(assignment_to_display)%>" title="<%= assignment_to_display.try(:person).try(:team) %>"
+                data-toggle="tooltip" data-placement="top">
+                </span>
                 <%= assignment_to_display.try(:person).try(:name) %>
               </td>
-            <% end %>
-        <td>
-          <%= link_to "Edit", edit_week_path(week) %>
-          <%= link_to "Remove", week, method: :delete %>
-        </td>
+        <% end %>
+          <% unless @history %>
+            <td class="edit-table">
+              <%= link_to "Edit", edit_week_path(week), class: 'btn btn-info' %>
+            </td>
+          <% end %>
         <% else %>
           <%= render partial: 'form', locals: { f:f, week: week } %>
         <% end %>

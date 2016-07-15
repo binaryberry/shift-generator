@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :assignments
   end
 
+  get 'history', to: 'weeks#history'
+
   mount GovukAdminTemplate::Engine, at: "/style-guide"
 
   # Example resource route with options:

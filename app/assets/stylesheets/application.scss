@@ -19,17 +19,8 @@
    background-color: #ffe6e6;
  }
 
- .placeholder-text {
-   display: none;
- }
-
  button {
    display: none;
- }
-
- .assignment-missing:hover .placeholder-text {
-   display: block;
-   font-size: 0.8em;
  }
 
  .table > tbody > tr > td > span {
@@ -40,7 +31,7 @@
  }
 
  .table > tbody > tr > td > span.custom {
-  background-color: #E32017;
+  background-color: #7156A5;
  }
 
  .table > tbody > tr > td > span.core-formats {
@@ -56,7 +47,7 @@
  }
 
  .table > tbody > tr > td > span.infrastructure {
-   background-color: #7156A5;
+   background-color: #E32017;
  }
 
  .table > tbody > tr > td > span.finding-things {

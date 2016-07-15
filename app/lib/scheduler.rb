@@ -15,7 +15,8 @@ class Scheduler
 
   def people_available(role)
     list = Person.with_role(role).to_a
-    no_recent_assignment(list)
+    updated_list = no_recent_assignment(list)
+    different_teams(updated_list)
   end
 
   def assign(role)
@@ -29,6 +30,14 @@ class Scheduler
 
   def no_recent_assignment(list)
     list.reject{|person| person.recent_assignment(@week)}
+  end
+
+  def different_teams(list)
+    mapping = {}
+    list.each do |person|
+      mapping[person.team] = person
+    end
+    mapping.values
   end
 
   def assignments
