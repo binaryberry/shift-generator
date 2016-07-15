@@ -2,6 +2,7 @@ class Person < ActiveRecord::Base
   after_create :default_values
 	has_many :assignments, dependent: :destroy
 	has_many :weeks, through: :assignments, dependent: :destroy
+	has_many :roles, dependent: :destroy
   validates_each :roles, presence: true do |record, attr, value|
     has_incompatibility = value.include?("primary_developer") || value.include?("supplemental_developer")
     record.errors.add(attr, "Infrastructure Developers can't also be Primary or Supplemental") if value.include?("infrastructure_developer") && has_incompatibility
