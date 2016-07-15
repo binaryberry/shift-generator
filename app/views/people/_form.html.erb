@@ -17,9 +17,10 @@
   </div>
   <div class="field">
     <%= f.label :roles %><br>
-    <% Week.roles.each do |role| %>
-      <%= f.check_box :roles, {multiple: true}, role, nil %>
-      <%= f.label role %><br>
+    <% Role.all.each do |role| %>
+      <%= f.check_box "roles", {multiple: true}, role.name, nil%>
+      <%= h role.name %>
+      <% f.hidden_field role.id %>
     <% end %>
   </div>
   <div class="field">

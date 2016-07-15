@@ -1,3 +1,3 @@
 class Role < ActiveRecord::Base
-  has_many :person
+  has_and_belongs_to_many :weeks
 end

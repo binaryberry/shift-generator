@@ -1,5 +1,4 @@
 class WeeksController < ApplicationController
-  # before_action {@weeks = Week.all.order(:start_date)}
 
   def index
     @weeks = Week.where('start_date > ?', Date.today - 6 )
