@@ -7,3 +7,5 @@ Currently, GOV.UK 2nd line and oncall shifts are determined manually through an 
 `bundle exec rake`
 
 #PAUL : Faker Gem was sometimes returning duplicate names, so I used sequences with it: https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#sequences
+
+#Testing a change
